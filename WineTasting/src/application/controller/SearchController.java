@@ -1,5 +1,23 @@
 package application.controller;
 
-public class SearchController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.Initializable;
+
+public class SearchController implements Initializable{
+
+	private MainController mainCon;
+
+	public SearchController(MainController mainController) {
+		// TODO Auto-generated constructor stub
+		this.mainCon = mainController;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

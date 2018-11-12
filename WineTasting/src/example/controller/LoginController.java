@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
     		    public void handle(WorkerStateEvent t) {
     		    	Boolean  result = (Boolean) lp.getValue();
     		        if(result){
-    		        	mainCon.gotoNextScene("/view/Hello.fxml", new HelloController(loginObject.getUsername()));
+    		        	mainCon.gotoNextScene("/example/view/Hello.fxml", new HelloController(loginObject.getUsername()));
     		        } else {
     		        	console.setText("Sorry Wrong ID and Password");
     		        }

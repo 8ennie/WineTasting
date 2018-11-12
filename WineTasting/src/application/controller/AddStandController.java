@@ -9,14 +9,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 /**
- * @author student
+ * @author bcwie
  *
  */
-public class EditWineController implements Initializable{
+public class AddStandController implements Initializable{
 
 	private MainController mainCon;
 
-	public EditWineController(MainController mainController) {
+	public AddStandController(MainController mainController) {
 		// TODO Auto-generated constructor stub
 		this.mainCon = mainController;
 	}
@@ -26,5 +26,6 @@ public class EditWineController implements Initializable{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	
 }

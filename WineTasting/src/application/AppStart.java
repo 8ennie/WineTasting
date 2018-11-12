@@ -6,16 +6,14 @@ import javafx.stage.Stage;
 
 public class AppStart extends Application {
 
-	
-	 public static void main(String[] args) {
-	    	launch(args);
-	    }  
+	public static void main(String[] args) {
+		launch(args);
+	}
 
-	    @Override
-	    public void start(Stage stage) throws Exception {
-	       MainController mainController = new MainController(stage);
-	       mainController.gotoLogin();
-	        
-	    }
+	@Override
+	public void start(Stage stage) throws Exception {
+		MainController mainController = new MainController(stage);
+		mainController.gotoLogin();
+	}
 
 }

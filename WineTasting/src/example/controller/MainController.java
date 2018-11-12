@@ -16,7 +16,7 @@ public class MainController {
 	 
 	 public void gotoLogin() {
 	        try {
-	             this.replaceSceneContent("/view/Login.fxml", new LoginController(this));
+	             this.replaceSceneContent("/example/view/Login.fxml", new LoginController(this));
 	            
 	        } catch (Exception ex) {
 	            System.out.println("Login: "+ex.getMessage());

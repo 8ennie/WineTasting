@@ -1,6 +1,3 @@
-/**
- * 
- */
 package application.controller;
 
 import java.net.URL;
@@ -8,15 +5,11 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
-/**
- * @author student
- *
- */
-public class EditWineController implements Initializable{
+public class ViewEvaluationController implements Initializable{
 
 	private MainController mainCon;
 
-	public EditWineController(MainController mainController) {
+	public ViewEvaluationController(MainController mainController) {
 		// TODO Auto-generated constructor stub
 		this.mainCon = mainController;
 	}

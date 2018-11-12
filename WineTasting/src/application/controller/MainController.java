@@ -3,7 +3,6 @@
  */
 package application.controller;
 
-import application.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -16,48 +15,115 @@ import javafx.stage.Stage;
  */
 public class MainController {
 
- private Stage stage; 
-	 
-	 public MainController(Stage stage){
-		 this.stage = stage;
-	 }
-	 
-	 public void gotoLogin() {
-	        try {
-	             this.replaceSceneContent("/application/view/Login.fxml", new LoginController(this));
-	            
-	        } catch (Exception ex) {
-	            System.out.println("Login: "+ex.getMessage());
-	        }
-	    }
+	private Stage stage;
 
-	 public void gotoOptions() {
-		 try {
-			 this.replaceSceneContent("/application/view/Options.fxml", new OptionsController(this));
-			 
-		 } catch (Exception ex) {
-			 System.out.println("Login: "+ex.getMessage());
-		 }
-	 }
+	public MainController(Stage stage) {
+		this.stage = stage;
+	}
 
-	    private void replaceSceneContent(String fxmlPath, Initializable controller ) throws Exception {
-	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource(fxmlPath));  
-		    loader.setController(controller);
-		    Parent root = loader.load();
-		    Scene scene = new Scene(root);
-		    stage.setScene(scene);
-		    // Show the GUI
-		    stage.show();
-	    }
-	    
-	    public void gotoNextScene(String fxmlPath, Initializable controller) {
-	        try {
-	            this.replaceSceneContent(fxmlPath, controller);
-	        } catch (Exception ex) {
-	            System.out.println(ex.getMessage());
-	        }
-	    }
-	    
+	public void gotoLogin() {
+		try {
+			this.replaceSceneContent("/application/view/Login.fxml", new LoginController(this));
+
+		} catch (Exception ex) {
+			System.out.println("Login: " + ex.getMessage());
+		}
+	}
+
+	public void gotoAddStand() {
+		try {
+			this.replaceSceneContent("/application/view/AddStand.fxml", new AddStandController(this));
+
+		} catch (Exception ex) {
+			System.out.println("AddStand: " + ex.getMessage());
+		}
+	}
 	
+	public void gotoEvaluation() {
+		try {
+			this.replaceSceneContent("/application/view/Evaluation.fxml", new EvaluationController(this));
+
+		} catch (Exception ex) {
+			System.out.println("Evaluation: " + ex.getMessage());
+		}
+	}
+	
+	public void gotoRegister() {
+		try {
+			this.replaceSceneContent("/application/view/Register.fxml", new RegisterController(this));
+
+		} catch (Exception ex) {
+			System.out.println("Register: " + ex.getMessage());
+		}
+	}
+	
+	public void gotoSearch() {
+		try {
+			this.replaceSceneContent("/application/view/Search.fxml", new SearchController(this));
+
+		} catch (Exception ex) {
+			System.out.println("Search: " + ex.getMessage());
+		}
+	}
+	
+	public void gotoStands() {
+		try {
+			this.replaceSceneContent("/application/view/Stands.fxml", new StandsController(this));
+
+		} catch (Exception ex) {
+			System.out.println("Stands: " + ex.getMessage());
+		}
+	}
+	
+	public void gotoViewEvaluation() {
+		try {
+			this.replaceSceneContent("/application/view/ViewEvaluation.fxml", new ViewEvaluationController(this));
+
+		} catch (Exception ex) {
+			System.out.println("ViewEvaluation: " + ex.getMessage());
+		}
+	}
+	
+	public void gotoEditWine() {
+		try {
+			this.replaceSceneContent("/application/view/EditWine.fxml", new EditWineController(this));
+
+		} catch (Exception ex) {
+			System.out.println("EditWine: " + ex.getMessage());
+		}
+	}
+	
+	public void gotoOptions() {
+		try {
+			this.replaceSceneContent("/application/view/Options.fxml", new OptionsController(this));
+
+		} catch (Exception ex) {
+			System.out.println("Options: " + ex.getMessage());
+		}
+	}
+
+	private void replaceSceneContent(String fxmlPath, Initializable controller) throws Exception {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(fxmlPath));
+		loader.setController(controller);
+		Parent root = loader.load();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		// Show the GUI
+		stage.show();
+	}
+
+	public void gotoNextScene(String fxmlPath, Initializable controller) {
+		try {
+			this.replaceSceneContent(fxmlPath, controller);
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+
+	public void logOut() {
+		// TODO Auto-generated method stub
+		gotoLogin();
+	}
+
 }

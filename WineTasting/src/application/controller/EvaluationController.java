@@ -12,11 +12,11 @@ import javafx.fxml.Initializable;
  * @author student
  *
  */
-public class EditWineController implements Initializable{
+public class EvaluationController implements Initializable{
 
 	private MainController mainCon;
 
-	public EditWineController(MainController mainController) {
+	public EvaluationController(MainController mainController) {
 		// TODO Auto-generated constructor stub
 		this.mainCon = mainController;
 	}
