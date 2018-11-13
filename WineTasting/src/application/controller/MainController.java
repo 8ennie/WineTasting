@@ -3,6 +3,7 @@
  */
 package application.controller;
 
+import application.model.data.Stand;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -84,9 +85,9 @@ public class MainController {
 		}
 	}
 	
-	public void gotoEditWine() {
+	public void gotoEditWine(Stand stand) {
 		try {
-			this.replaceSceneContent("/application/view/EditWine.fxml", new EditWineController(this));
+			this.replaceSceneContent("/application/view/EditWine.fxml", new EditWineController(this, stand));
 
 		} catch (Exception ex) {
 			System.out.println("EditWine: " + ex.getMessage());

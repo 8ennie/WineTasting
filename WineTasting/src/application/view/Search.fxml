@@ -35,7 +35,7 @@
                         <Font size="50.0" />
                      </font>
                   </Label>
-                  <Label text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <Label fx:id="lblUserName" text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -43,12 +43,12 @@
                         <Insets right="15.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button mnemonicParsing="false" text="Log Out" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                  <Button mnemonicParsing="false" onAction="#logOut" text="Log Out" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" right="15.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="&lt; Back">
+                  <Button mnemonicParsing="false" onAction="#goBack" prefHeight="50.0" prefWidth="75.0" text="&lt; Back">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
@@ -64,11 +64,11 @@
                <center>
                   <TreeTableView prefHeight="200.0" prefWidth="200.0">
                      <columns>
-                        <TreeTableColumn prefWidth="72.0" text="Stand Nr." />
-                        <TreeTableColumn prefWidth="154.0" text="Stand Name" />
-                        <TreeTableColumn prefWidth="143.0" text="Stand Location" />
-                        <TreeTableColumn prefWidth="109.0" text="Stand Owner" />
-                        <TreeTableColumn prefWidth="75.0" text="Wine Name" />
+                        <TreeTableColumn fx:id="tcStandNr" prefWidth="72.0" text="Stand Nr." />
+                        <TreeTableColumn fx:id="tcStandName" prefWidth="154.0" text="Stand Name" />
+                        <TreeTableColumn fx:id="tcStandLocation" prefWidth="143.0" text="Stand Location" />
+                        <TreeTableColumn fx:id="tcStandOwner" prefWidth="109.0" text="Stand Owner" />
+                        <TreeTableColumn fx:id="tcWineName" prefWidth="75.0" text="Wine Name" />
                      </columns>
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -94,12 +94,12 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="435.0" GridPane.columnIndex="1">
+                        <TextField onAction="#txtSearch" prefHeight="25.0" prefWidth="435.0" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#search" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </top>
@@ -117,12 +117,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Evaluate" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#goToEvaluation" text="Evaluate" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Edit Stands" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button mnemonicParsing="false" onAction="#editStand" text="Edit Stands" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
          </bottom>

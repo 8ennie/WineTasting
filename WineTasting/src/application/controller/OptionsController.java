@@ -22,7 +22,7 @@ public class OptionsController implements Initializable{
     private URL location;
 
     @FXML // fx:id="userNameLabel"
-    private Label userNameLabel; // Value injected by FXMLLoader
+    private Label lblUserName; // Value injected by FXMLLoader
 
 	private final MainController mainCon;
 
@@ -52,7 +52,7 @@ public class OptionsController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		assert userNameLabel != null : "fx:id=\"userNameLabel\" was not injected: check your FXML file 'Options.fxml'.";
-		userNameLabel.setText(User.getCurUser().getUsername());
+		assert lblUserName != null : "fx:id=\"userNameLabel\" was not injected: check your FXML file 'Options.fxml'.";
+		lblUserName.setText(User.getCurUser().getUsername());
 	}
 }

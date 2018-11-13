@@ -35,7 +35,7 @@
                         <Font size="50.0" />
                      </font>
                   </Label>
-                  <Label text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <Label fx:id="lblUsername" text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -43,12 +43,12 @@
                         <Insets right="15.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button mnemonicParsing="false" text="Log Out" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                  <Button mnemonicParsing="false" onAction="#logOut" text="Log Out" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" right="15.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="&lt; Back">
+                  <Button mnemonicParsing="false" onAction="#goBack" prefHeight="50.0" prefWidth="75.0" text="&lt; Back">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
@@ -64,16 +64,15 @@
                         <Insets top="5.0" />
                      </BorderPane.margin>
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="176.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="133.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="143.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="89.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="296.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label style="-fx-background-color: gray;" text="Store Name" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label fx:id="lblStandName" style="-fx-background-color: gray;" text="Stand Name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -81,16 +80,8 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <ChoiceBox prefHeight="25.0" prefWidth="247.0" GridPane.columnIndex="3" />
-                        <Label style="-fx-background-color: gray;" text="Store Nr" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label style="-fx-background-color: red;" text="Wine:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <ChoiceBox fx:id="cbWines" prefHeight="25.0" prefWidth="247.0" GridPane.columnIndex="2" />
+                        <Label style="-fx-background-color: red;" text="Wine:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -136,7 +127,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Slider blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                        <Slider fx:id="sliderSweet" blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -144,7 +135,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Slider>
-                        <Slider blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                        <Slider fx:id="sliderSalty" blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -152,7 +143,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Slider>
-                        <Slider blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                        <Slider fx:id="sliderBitter" blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -160,7 +151,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Slider>
-                        <Slider blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                        <Slider fx:id="sliderSour" blockIncrement="1.0" majorTickUnit="2.0" max="10.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="CENTER">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -189,7 +180,7 @@
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                        <TextArea fx:id="txtReview" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -203,7 +194,7 @@
             </BorderPane>
          </center>
          <bottom>
-            <Button mnemonicParsing="false" text="Evaluate" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#evaluateWine" text="Evaluate" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>

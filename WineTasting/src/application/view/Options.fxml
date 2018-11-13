@@ -32,7 +32,7 @@
                         <Font size="50.0" />
                      </font>
                   </Label>
-                  <Label fx:id="userNameLabel" text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <Label fx:id="lblUserName" text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <font>
                         <Font size="15.0" />
                      </font>

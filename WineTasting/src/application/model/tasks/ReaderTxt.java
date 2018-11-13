@@ -14,7 +14,7 @@ public class ReaderTxt {
 	protected boolean read() {
 		try {
 
-			FileInputStream fstream = new FileInputStream("C:\\Users\\bcwie\\git\\WineTasting\\WineTasting\\src\\application\\model\\UserList.txt");
+			FileInputStream fstream = new FileInputStream("C:\\Users\\bcwie\\git\\WineTasting\\WineTasting\\src\\application\\model\\data\\UserList.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 			String strLine;
