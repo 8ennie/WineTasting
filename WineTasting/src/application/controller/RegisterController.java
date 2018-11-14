@@ -70,7 +70,7 @@ public class RegisterController implements Initializable {
 			    public void handle(WorkerStateEvent t) {
 			    	Boolean  result = (Boolean) rU.getValue();
 			        if(result){
-			        	mainCon.gotoLogin();
+			        		mainCon.gotoLogin();
 			        } else {
 			        }
 			    }

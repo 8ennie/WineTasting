@@ -23,7 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable{
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -51,56 +51,64 @@ public class LoginController implements Initializable {
 
 	private MainController mainCon;
 
-	final EventHandler<Event> loginHandler = new EventHandler<Event>() {
+	final EventHandler<ActionEvent> registerHandler = new EventHandler<ActionEvent>(){
+
 		@Override
-		public void handle(Event event) {
+		public void handle(ActionEvent actionEvent){
+			LoginController.this.mainCon.gotoRegister();
+		}
+	};
+
+	final EventHandler<Event> loginHandler = new EventHandler<Event>(){
+		@Override
+		public void handle(Event event){
 			System.out.println(event.getEventType());
-			if(event.getEventType() != ActionEvent.ANY && event.getEventType() != KeyEvent.KEY_PRESSED) {
+			if(event.getEventType() != ActionEvent.ANY && event.getEventType() != KeyEvent.KEY_PRESSED){
 				return;
 			}
-			if(event.getEventType() != ActionEvent.ANY) {
-				if(!((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+			if(event.getEventType() != ActionEvent.ANY){
+				if(!((KeyEvent) event).getCode().equals(KeyCode.ENTER)){
 					return;
 				}
 			}
-			
-			
-				User user = new User(txtUsername.getText(), pfPassword.getText());
-				LoginProcess lp = new LoginProcess(user);
-				lp.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler<WorkerStateEvent>() {
-					@Override
-					public void handle(WorkerStateEvent t) {
-						Boolean result = (Boolean) lp.getValue();
-						if (result) {
-							mainCon.setSession(new SessionInfos(user));
-							mainCon.gotoOptions();
-						} else {
-							lblError.setVisible(true);
-							lblError.setText("An Error Ocured! Username or Password is incorrect!");
-						}
-					}
-				});
-				new Thread(lp).start();
-			}
-	};
-	
-	@FXML
-	void register(ActionEvent event) {
-		mainCon.gotoRegister();
-	}
 
-	public LoginController(MainController mainController) {
+			User user = new User(LoginController.this.txtUsername.getText(), LoginController.this.pfPassword.getText());
+			LoginProcess lp = new LoginProcess(user);
+			lp.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler<WorkerStateEvent>(){
+				@Override
+				public void handle(WorkerStateEvent t){
+					Boolean result = lp.getValue();
+					if(result){
+						LoginController.this.mainCon.setSession(new SessionInfos(user));
+						LoginController.this.mainCon.gotoOptions();
+					} else{
+						LoginController.this.lblError.setVisible(true);
+						LoginController.this.lblError.setText("An Error Ocured! Username or Password is incorrect!");
+					}
+				}
+			});
+			new Thread(lp).start();
+		}
+	};
+
+	public LoginController(MainController mainController){
 		this.mainCon = mainController;
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		assert txtUsername != null : "fx:id=\"txtUsername\" was not injected: check your FXML file 'Login.fxml'.";
-		assert pfPassword != null : "fx:id=\"pfPassword\" was not injected: check your FXML file 'Login.fxml'.";
-		assert lblError != null : "fx:id=\"lblError\" was not injected: check your FXML file 'Login.fxml'.";
+	public void initialize(URL location, ResourceBundle resources){
+		assert this.txtUsername != null : "fx:id=\"txtUsername\" was not injected: check your FXML file 'Login.fxml'.";
+		assert this.pfPassword != null : "fx:id=\"pfPassword\" was not injected: check your FXML file 'Login.fxml'.";
+		assert this.lblError != null : "fx:id=\"lblError\" was not injected: check your FXML file 'Login.fxml'.";
 
-		btnLogin.addEventHandler(ActionEvent.ANY, loginHandler);
-		login_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, loginHandler);
+		this.btnLogin.addEventHandler(ActionEvent.ANY, this.loginHandler);
+		this.btnRegister.addEventHandler(ActionEvent.ANY, this.registerHandler);
+		this.login_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.loginHandler);
+	}
+
+	@FXML
+	void register(ActionEvent event){
+		this.mainCon.gotoRegister();
 	}
 
 }
