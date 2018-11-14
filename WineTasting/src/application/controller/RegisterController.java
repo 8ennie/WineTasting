@@ -13,6 +13,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -34,6 +35,9 @@ public class RegisterController implements Initializable {
 
 	@FXML // fx:id="pfPassword2"
 	private PasswordField pfPassword2; // Value injected by
+	 
+	@FXML
+	private Label lblError;
 
 	 private MainController mainCon;
 	
@@ -59,9 +63,7 @@ public class RegisterController implements Initializable {
 	@FXML
 	void register(ActionEvent event) {
 		if(pfPassword1.getText().equals(pfPassword2.getText())) {
-			User newUser = new User();
-			newUser.setUsername(txtUsername.getText());
-			newUser.setPassword(pfPassword1.getText());
+			User newUser = new User(txtUsername.getText(), pfPassword1.getText());
 			RegisterUser rU = new RegisterUser(newUser);
 			rU.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,new EventHandler<WorkerStateEvent>() {
 			    @Override
@@ -74,6 +76,9 @@ public class RegisterController implements Initializable {
 			    }
 			});
 			new Thread(rU).start(); 
+		}else {
+			System.out.println("PW's nicht gleich");
+			lblError.setText("Passwords are not the same");
 		}
 	}
 

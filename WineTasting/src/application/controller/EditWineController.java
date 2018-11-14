@@ -66,7 +66,7 @@ public class EditWineController implements Initializable {
 
 	@FXML
 	void finished(ActionEvent event) {
-
+		mainCon.gotoSearch();
 	}
 
 	@FXML

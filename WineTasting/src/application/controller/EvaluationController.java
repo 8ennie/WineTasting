@@ -78,12 +78,12 @@ public class EvaluationController implements Initializable {
 
 	@FXML
 	void goBack(ActionEvent event) {
-
+		mainCon.gotoOptions();
 	}
 
 	@FXML
 	void logOut(ActionEvent event) {
-
+		mainCon.logOut();
 	}
 
 }

@@ -3,54 +3,55 @@
  */
 package application.model.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * @author student
+ * @author Noah Ruben
  *
  */
 public class User {
 	
-	private static List<User> userList = new ArrayList<User>();
-	
-	private static User curUser;
-	
-	private String username;
-	private String password;
-	
-	
-	
+	private final String USERNAME;
+	private final String PW;
 	
 	public String getUsername() {
-		return username;
+		return this.USERNAME;
 	}
 	public String getPassword() {
-		return password;
-	}
-	public static List<User> getUserList() {
-		return userList;
-	}
-	public static User getCurUser() {
-		return curUser;
-	}
-	public static void setCurUser(User curUser) {
-		User.curUser = curUser;
-	}
-	public static void setUserList(List<User> userList) {
-		User.userList = userList;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public static void addUser(User user) {
-		User.userList.add(user);
+		return this.PW;
 	}
 	
+	/**
+	 * @param name of the user
+	 * @param password of the user
+	 */
+	public User(String name, String password) {
+		super();
+		USERNAME = name;
+		PW = password;
+	}
 	
-	
-	
+	public boolean isEqualTo(User userToCompare) {
+		System.out.println("X: " + this);
+		System.out.println("X: " + userToCompare);
+		if (this.USERNAME.equals(userToCompare.getUsername()) && this.PW.equals(userToCompare.getPassword())) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("User ");
+		if (USERNAME != null) {
+			builder.append("USERNAME=");
+			builder.append(USERNAME);
+			builder.append(", ");
+		}
+		if (PW != null) {
+			builder.append("PW=");
+			builder.append(PW);
+		}
+		return builder.toString();
+	}
 }

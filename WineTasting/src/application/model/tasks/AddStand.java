@@ -23,8 +23,8 @@ public class AddStand extends Task<Object>{
 
 	public boolean saveStand() {
 		try {
-			CsvFileWriter.writeStandToCsvFile("C:\\Users\\bcwie\\git\\WineTasting\\WineTasting\\src\\application\\model\\data\\Stand.csv", newStand);
-			CsvFileReader.readCsvFile("C:\\Users\\bcwie\\git\\WineTasting\\WineTasting\\src\\application\\model\\data\\Stand.csv");
+			CsvFileWriter.writeStandToCsvFile("./src/application/model/data/Stand.csv", newStand);
+			CsvFileReader.readCsvFile("./src/application/model/data/Stand.csv");
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);

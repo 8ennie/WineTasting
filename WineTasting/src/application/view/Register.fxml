@@ -53,6 +53,22 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
                   </TextField>
+                  <PasswordField fx:id="pfPassword1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="pfPassword2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </PasswordField>
                   <Label text="Error Message" textFill="RED" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <columnConstraints>
@@ -81,22 +97,11 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="pfPassword1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="lblError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        <Insets left="15.0" />
                      </GridPane.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </PasswordField>
-                  <PasswordField fx:id="pfPassword2" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </PasswordField>
+                  </Label>
                </children>
             </GridPane>
          </center>

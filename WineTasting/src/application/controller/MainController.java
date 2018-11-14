@@ -3,6 +3,7 @@
  */
 package application.controller;
 
+import application.model.data.SessionInfos;
 import application.model.data.Stand;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 public class MainController {
 
 	private Stage stage;
+	private SessionInfos session;
 
 	public MainController(Stage stage) {
 		this.stage = stage;
@@ -42,10 +44,10 @@ public class MainController {
 	
 	public void gotoEvaluation() {
 		try {
-			this.replaceSceneContent("/application/view/Evaluation.fxml", new EvaluationController(this));
+			this.replaceSceneContent("/application/view/Evaluate.fxml", new EvaluationController(this));
 
 		} catch (Exception ex) {
-			System.out.println("Evaluation: " + ex.getMessage());
+			System.out.println("Evaluate: " + ex.getMessage());
 		}
 	}
 	
@@ -99,6 +101,7 @@ public class MainController {
 			this.replaceSceneContent("/application/view/Options.fxml", new OptionsController(this));
 
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			System.out.println("Options: " + ex.getMessage());
 		}
 	}
@@ -125,6 +128,20 @@ public class MainController {
 	public void logOut() {
 		// TODO Auto-generated method stub
 		gotoLogin();
+	}
+
+	/**
+	 * @return the session
+	 */
+	public SessionInfos getSession() {
+		return session;
+	}
+
+	/**
+	 * @param session the session to set
+	 */
+	public void setSession(SessionInfos session) {
+		this.session = session;
 	}
 
 }

@@ -53,6 +53,6 @@ public class OptionsController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		assert lblUserName != null : "fx:id=\"userNameLabel\" was not injected: check your FXML file 'Options.fxml'.";
-		lblUserName.setText(User.getCurUser().getUsername());
+		lblUserName.setText(mainCon.getSession().getCurrentUser().getUsername());
 	}
 }

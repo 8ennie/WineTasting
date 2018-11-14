@@ -5,32 +5,29 @@ import java.util.List;
 import application.model.data.User;
 import javafx.concurrent.Task;
 
-public class LoginProcess extends Task<Object> {
+public class LoginProcess extends Task<Boolean> {
 
-	private String userName;
-	private String password;
+
+	private final User user;
 
 	@Override
-	protected Object call() throws Exception {
-		new ReaderTxt().read();
+	protected Boolean call() throws Exception {
 		return verifyLogin();
 	}
 
 	public LoginProcess(User user) {
-		userName = user.getUsername();
-		password = user.getPassword();
+		this.user = user;
 	}
 
 	public boolean verifyLogin() {
-		List<User> uList = User.getUserList();
-		for (User user : uList) {
-			if (user.getUsername().equals(this.userName) && user.getPassword().equals(this.password)) {
-				User.setCurUser(user);
+		List<User> users = UserFileReader.getUsers();
+		for (User user : users) {
+			if(this.user.isEqualTo(user)) {
+				System.out.println("true");
 				return true;
 			}
 		}
 		return false;
-
 	}
 
 }
