@@ -20,7 +20,7 @@ public class LoginProcess extends Task<Boolean> {
 	}
 
 	public boolean verifyLogin() {
-		List<User> users = UserFileReader.getUsers();
+		List<User> users = UserFileHandler.getUsers();
 		for (User user : users) {
 			if(this.user.isEqualTo(user)) {
 				System.out.println("true");

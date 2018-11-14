@@ -1,38 +1,30 @@
 package application.model.tasks;
 
-import java.io.FileWriter;
+import java.io.IOException;
 
 import application.model.data.User;
 import javafx.concurrent.Task;
 
-public class RegisterUser extends Task<Object> {
+public class RegisterUser extends Task<Boolean>{
 
-	private final String userName;
-	private final String password;
+	private final User user;
 
-	@Override
-	protected Object call() throws Exception {
-		return writeToFile();
+	public RegisterUser(User user){
+		this.user = user;
 	}
 
-	public RegisterUser(User user) {
-		this.userName = user.getUsername();
-		this.password = user.getPassword();
-	}
-
-	private boolean writeToFile() {
-		try {
-			FileWriter fwrite = new FileWriter("C:\\Users\\bcwie\\git\\WineTasting\\WineTasting\\src\\application\\model\\UserList.txt",true);
-			String write = "\n" + userName + ":" + password  ;
-			fwrite.write(write);
-			fwrite.close();
-			System.out.println("Success");
-			return true;
-		} catch (Exception e) {
+	private boolean writeToFile(){
+		try{
+			UserFileHandler.persistUser(this.user);
+		} catch (IOException e){
 			e.printStackTrace();
-			System.out.println("Exception occured.");
 			return false;
 		}
+		return true;
+	}
 
+	@Override
+	protected Boolean call() throws Exception{
+		return this.writeToFile();
 	}
 }
