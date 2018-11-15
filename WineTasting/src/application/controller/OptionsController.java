@@ -7,52 +7,103 @@ package application.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.model.data.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
-public class OptionsController implements Initializable{
+public class OptionsController implements Initializable {
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+	@FXML // ResourceBundle that was given to the FXMLLoader
+	private ResourceBundle resources;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+	@FXML // URL location of the FXML file that was given to the FXMLLoader
+	private URL location;
 
-    @FXML // fx:id="userNameLabel"
-    private Label lblUserName; // Value injected by FXMLLoader
+	@FXML // fx:id="options_AnchorPane"
+	private AnchorPane options_AnchorPane; // Value injected by FXMLLoader
+
+	@FXML // fx:id="userName_Lable"
+	private Label userName_Lable; // Value injected by FXMLLoader
+
+	@FXML // fx:id="logOut_Button"
+	private Button logOut_Button; // Value injected by FXMLLoader
+
+	@FXML // fx:id="edit_Button"
+	private Button edit_Button; // Value injected by FXMLLoader
+
+	@FXML // fx:id="evaluation_Button"
+	private Button evaluation_Button; // Value injected by FXMLLoader
+
+	@FXML // fx:id="viewEvaluation_Button"
+	private Button viewEvaluation_Button; // Value injected by FXMLLoader
 
 	private final MainController mainCon;
 
-    public OptionsController(MainController mainController) {
-    	this.mainCon = mainController;
-    }
-
-	@FXML
-    void edit(ActionEvent event) {
-		mainCon.gotoStands();
-    }
-
-    @FXML
-    void evaluate(ActionEvent event) {
-    	mainCon.gotoEvaluation();
-    }
-
-    @FXML
-    void logOut(ActionEvent event) {
-    	mainCon.logOut();
-    }
-
-    @FXML
-    void viewEvaluation(ActionEvent event) {
-    	mainCon.gotoViewEvaluation();
-    }
+	public OptionsController(MainController mainController) {
+		this.mainCon = mainController;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		assert lblUserName != null : "fx:id=\"userNameLabel\" was not injected: check your FXML file 'Options.fxml'.";
-		lblUserName.setText(mainCon.getSession().getCurrentUser().getUsername());
+		assert options_AnchorPane != null : "fx:id=\"options_AnchorPane\" was not injected: check your FXML file 'Options.fxml'.";
+		assert userName_Lable != null : "fx:id=\"userName_Lable\" was not injected: check your FXML file 'Options.fxml'.";
+		assert logOut_Button != null : "fx:id=\"logOut_Button\" was not injected: check your FXML file 'Options.fxml'.";
+		assert edit_Button != null : "fx:id=\"edit_Button\" was not injected: check your FXML file 'Options.fxml'.";
+		assert evaluation_Button != null : "fx:id=\"evaluation_Button\" was not injected: check your FXML file 'Options.fxml'.";
+		assert viewEvaluation_Button != null : "fx:id=\"viewEvaluation_Button\" was not injected: check your FXML file 'Options.fxml'.";
+		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
+		options_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, enterHandler);
+		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.logOut();
+			}
+		});
+		edit_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoAddStand();
+			}
+		});
+		evaluation_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoEvaluation();
+			}
+		});
+		viewEvaluation_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoViewEvaluation();
+			}
+		});
 	}
+
+	final EventHandler<KeyEvent> enterHandler = new EventHandler<KeyEvent>() {
+		@Override
+		public void handle(KeyEvent event) {
+			if (event.getCode().equals(KeyCode.ENTER)) {
+				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(logOut_Button)) {
+					mainCon.logOut();
+				}
+				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(edit_Button)) {
+					mainCon.gotoAddStand();
+				}
+				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(evaluation_Button)) {
+					mainCon.gotoEvaluation();
+				}
+				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(viewEvaluation_Button)) {
+					mainCon.gotoViewEvaluation();
+				}
+			}
+
+		}
+	};
+
 }

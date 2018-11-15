@@ -144,4 +144,7 @@ public class MainController {
 		this.session = session;
 	}
 
+	public Stage getStage() {
+		return stage;
+	}
 }
