@@ -68,7 +68,7 @@ public class OptionsController implements Initializable {
 		edit_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				mainCon.gotoAddStand();
+				mainCon.gotoStands();
 			}
 		});
 		evaluation_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
@@ -93,7 +93,7 @@ public class OptionsController implements Initializable {
 					mainCon.logOut();
 				}
 				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(edit_Button)) {
-					mainCon.gotoAddStand();
+					mainCon.gotoStands();
 				}
 				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(evaluation_Button)) {
 					mainCon.gotoEvaluation();

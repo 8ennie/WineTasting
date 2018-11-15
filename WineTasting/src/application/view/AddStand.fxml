@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="addStand_AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -33,7 +33,7 @@
                         <Font size="50.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblUsername" text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <Label fx:id="userName_Lable" text="Username" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -41,7 +41,7 @@
                         <Insets right="15.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#logOut" text="Log Out" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                  <Button fx:id="logOut_Button" mnemonicParsing="false" text="Log Out" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" right="15.0" />
                      </GridPane.margin>
@@ -78,7 +78,23 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtStandOwner" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="standName_TextField" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="standLocation_TextField" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="standOwner_TextField" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -94,7 +110,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#addStand" text="Add Stand" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                  <Button fx:id="addStand_Button" mnemonicParsing="false" text="Add Stand" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -102,22 +118,6 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="txtStandName" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="txtStandLocation" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </GridPane.margin>
-                  </TextField>
                </children>
             </GridPane>
          </right>

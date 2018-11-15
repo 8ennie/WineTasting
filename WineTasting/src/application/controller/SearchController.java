@@ -5,12 +5,18 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeTableColumn;
-
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class SearchController implements Initializable {
+
+	@FXML // fx:id="search_AnchorPane"
+	private AnchorPane search_AnchorPane; // Value injected by FXMLLoader
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -18,23 +24,44 @@ public class SearchController implements Initializable {
 	@FXML // URL location of the FXML file that was given to the FXMLLoader
 	private URL location;
 
-	@FXML // fx:id="lblUserName"
-	private Label lblUserName; // Value injected by FXMLLoader
+	@FXML // fx:id="userName_Lable"
+	private Label userName_Lable; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tcStandNr"
-	private TreeTableColumn<?, ?> tcStandNr; // Value injected by FXMLLoader
+	@FXML // fx:id="logOut_Button"
+	private Button logOut_Button; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tcStandName"
-	private TreeTableColumn<?, ?> tcStandName; // Value injected by FXMLLoader
+	@FXML // fx:id="bach_Button"
+	private Button bach_Button; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tcStandLocation"
-	private TreeTableColumn<?, ?> tcStandLocation; // Value injected by FXMLLoader
+	@FXML // fx:id="search_TextField"
+	private TextField search_TextField; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tcStandOwner"
-	private TreeTableColumn<?, ?> tcStandOwner; // Value injected by FXMLLoader
+	@FXML // fx:id="search_Button"
+	private Button search_Button; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tcWineName"
-	private TreeTableColumn<?, ?> tcWineName; // Value injected by FXMLLoader
+	@FXML // fx:id="result_TableView"
+	private TableView<?> result_TableView; // Value injected by FXMLLoader
+
+	@FXML // fx:id="standNr_TableColumn"
+	private TableColumn<?, ?> standNr_TableColumn; // Value injected by FXMLLoader
+
+	@FXML // fx:id="standName_TableColumn"
+	private TableColumn<?, ?> standName_TableColumn; // Value injected by FXMLLoader
+
+	@FXML // fx:id="standLocation_TableColumn"
+	private TableColumn<?, ?> standLocation_TableColumn; // Value injected by FXMLLoader
+
+	@FXML // fx:id="standOwner_TableColumn"
+	private TableColumn<?, ?> standOwner_TableColumn; // Value injected by FXMLLoader
+
+	@FXML // fx:id="wineName_TableColumn"
+	private TableColumn<?, ?> wineName_TableColumn; // Value injected by FXMLLoader
+
+	@FXML // fx:id="evaluation_Button"
+	private Button evaluation_Button; // Value injected by FXMLLoader
+
+	@FXML // fx:id="editStand_Button"
+	private Button editStand_Button; // Value injected by FXMLLoader
 
 	private MainController mainCon;
 
@@ -45,42 +72,20 @@ public class SearchController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		assert lblUserName != null : "fx:id=\"lblUserName\" was not injected: check your FXML file 'Search.fxml'.";
-		assert tcStandNr != null : "fx:id=\"tcStandNr\" was not injected: check your FXML file 'Search.fxml'.";
-		assert tcStandName != null : "fx:id=\"tcStandName\" was not injected: check your FXML file 'Search.fxml'.";
-		assert tcStandLocation != null : "fx:id=\"tcStandLocation\" was not injected: check your FXML file 'Search.fxml'.";
-		assert tcStandOwner != null : "fx:id=\"tcStandOwner\" was not injected: check your FXML file 'Search.fxml'.";
-		assert tcWineName != null : "fx:id=\"tcWineName\" was not injected: check your FXML file 'Search.fxml'.";
-
-	}
-
-	@FXML
-	void editStand(ActionEvent event) {
-
-	}
-
-	@FXML
-	void goBack(ActionEvent event) {
-
-	}
-
-	@FXML
-	void goToEvaluation(ActionEvent event) {
-
-	}
-
-	@FXML
-	void logOut(ActionEvent event) {
-
-	}
-
-	@FXML
-	void search(ActionEvent event) {
-
-	}
-
-	@FXML
-	void txtSearch(ActionEvent event) {
+		assert search_AnchorPane != null : "fx:id=\"search_AnchorPane\" was not injected: check your FXML file 'Search.fxml'.";
+		assert userName_Lable != null : "fx:id=\"userName_Lable\" was not injected: check your FXML file 'Search.fxml'.";
+		assert logOut_Button != null : "fx:id=\"logOut_Button\" was not injected: check your FXML file 'Search.fxml'.";
+		assert bach_Button != null : "fx:id=\"bach_Button\" was not injected: check your FXML file 'Search.fxml'.";
+		assert search_TextField != null : "fx:id=\"search_TextField\" was not injected: check your FXML file 'Search.fxml'.";
+		assert search_Button != null : "fx:id=\"search_Button\" was not injected: check your FXML file 'Search.fxml'.";
+		assert result_TableView != null : "fx:id=\"result_TableView\" was not injected: check your FXML file 'Search.fxml'.";
+		assert standNr_TableColumn != null : "fx:id=\"standNr_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
+		assert standName_TableColumn != null : "fx:id=\"standName_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
+		assert standLocation_TableColumn != null : "fx:id=\"standLocation_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
+		assert standOwner_TableColumn != null : "fx:id=\"standOwner_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
+		assert wineName_TableColumn != null : "fx:id=\"wineName_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
+		assert evaluation_Button != null : "fx:id=\"evaluation_Button\" was not injected: check your FXML file 'Search.fxml'.";
+		assert editStand_Button != null : "fx:id=\"editStand_Button\" was not injected: check your FXML file 'Search.fxml'.";
 
 	}
 

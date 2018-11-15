@@ -31,23 +31,23 @@ public class LoginController implements Initializable {
 	@FXML // URL location of the FXML file that was given to the FXMLLoader
 	private URL location;
 
-	@FXML // fx:id="txtUsername"
-	private TextField txtUsername; // Value injected by FXMLLoader
+	@FXML // fx:id="login_AnchorPane"
+	private AnchorPane login_AnchorPane; // Value injected by FXMLLoader
 
-	@FXML // fx:id="pfPassword"
-	private PasswordField pfPassword; // Value injected by FXMLLoader
+	@FXML // fx:id="userName_TextField"
+	private TextField userName_TextField; // Value injected by FXMLLoader
+
+	@FXML // fx:id="password_PasswordField"
+	private PasswordField password_PasswordField; // Value injected by FXMLLoader
 
 	@FXML // fx:id="lblError"
 	private Label lblError; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnLogin"
-	private Button btnLogin; // Value injected by FXMLLoader
+	@FXML // fx:id="login_Button"
+	private Button login_Button; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnRegister"
-	private Button btnRegister; // Value injected by FXMLLoader
-
-	@FXML // fx:id="Login_AnchorPane"
-	private AnchorPane login_AnchorPane; // Value injected by FXMLLoader
+	@FXML // fx:id="register_Button"
+	private Button register_Button; // Value injected by FXMLLoaderValue injected by FXMLLoader
 
 	private MainController mainCon;
 
@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
 					return;
 				}
 			}
-			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(btnRegister)) {
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(register_Button)) {
 				LoginController.this.mainCon.gotoRegister();
 			}
 
@@ -75,10 +75,10 @@ public class LoginController implements Initializable {
 				}
 			}
 
-			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(btnLogin)
-					|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(pfPassword)) {
-				User user = new User(LoginController.this.txtUsername.getText(),
-				LoginController.this.pfPassword.getText());
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(login_Button)
+					|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(password_PasswordField)) {
+				User user = new User(LoginController.this.userName_TextField.getText(),
+						LoginController.this.password_PasswordField.getText());
 				LoginProcess lp = new LoginProcess(user);
 				lp.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler<WorkerStateEvent>() {
 					@Override
@@ -105,12 +105,15 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		assert this.txtUsername != null : "fx:id=\"txtUsername\" was not injected: check your FXML file 'Login.fxml'.";
-		assert this.pfPassword != null : "fx:id=\"pfPassword\" was not injected: check your FXML file 'Login.fxml'.";
-		assert this.lblError != null : "fx:id=\"lblError\" was not injected: check your FXML file 'Login.fxml'.";
+		assert login_AnchorPane != null : "fx:id=\"login_AnchorPane\" was not injected: check your FXML file 'Login.fxml'.";
+		assert userName_TextField != null : "fx:id=\"userName_TextField\" was not injected: check your FXML file 'Login.fxml'.";
+		assert password_PasswordField != null : "fx:id=\"password_PasswordField\" was not injected: check your FXML file 'Login.fxml'.";
+		assert lblError != null : "fx:id=\"lblError\" was not injected: check your FXML file 'Login.fxml'.";
+		assert login_Button != null : "fx:id=\"login_Button\" was not injected: check your FXML file 'Login.fxml'.";
+		assert register_Button != null : "fx:id=\"register_Button\" was not injected: check your FXML file 'Login.fxml'.";
 
-		this.btnLogin.addEventHandler(ActionEvent.ANY, this.loginHandler);
-		this.btnRegister.addEventHandler(ActionEvent.ANY, this.registerHandler);
+		this.login_Button.addEventHandler(ActionEvent.ANY, this.loginHandler);
+		this.register_Button.addEventHandler(ActionEvent.ANY, this.registerHandler);
 		this.login_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.loginHandler);
 		this.login_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.registerHandler);
 	}

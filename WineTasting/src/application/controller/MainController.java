@@ -74,6 +74,7 @@ public class MainController {
 			this.replaceSceneContent("/application/view/Stands.fxml", new StandsController(this));
 
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			System.out.println("Stands: " + ex.getMessage());
 		}
 	}

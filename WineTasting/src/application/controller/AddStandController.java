@@ -8,12 +8,17 @@ import java.util.ResourceBundle;
 
 import application.model.data.Stand;
 import application.model.tasks.AddStand;
-import application.model.tasks.CsvFileWriter;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * @author bcwie
@@ -27,17 +32,26 @@ public class AddStandController implements Initializable {
 	@FXML // URL location of the FXML file that was given to the FXMLLoader
 	private URL location;
 
-	@FXML // fx:id="lblUsername"
-	private Label lblUsername; // Value injected by FXMLLoader
+	@FXML // fx:id="addStand_AnchorPane"
+	private AnchorPane addStand_AnchorPane; // Value injected by FXMLLoader
 
-	@FXML // fx:id="txtStandOwner"
-	private TextField txtStandOwner; // Value injected by FXMLLoader
+	@FXML // fx:id="userName_Lable"
+	private Label userName_Lable; // Value injected by FXMLLoader
 
-	@FXML // fx:id="txtStandName"
-	private TextField txtStandName; // Value injected by FXMLLoader
+	@FXML // fx:id="logOut_Button"
+	private Button logOut_Button; // Value injected by FXMLLoader
 
-	@FXML // fx:id="txtStandLocation"
-	private TextField txtStandLocation; // Value injected by FXMLLoader
+	@FXML // fx:id="standName_TextField"
+	private TextField standName_TextField; // Value injected by FXMLLoader
+
+	@FXML // fx:id="standLocation_TextField"
+	private TextField standLocation_TextField; // Value injected by FXMLLoader
+
+	@FXML // fx:id="standOwner_TextField"
+	private TextField standOwner_TextField; // Value injected by FXMLLoader
+
+	@FXML // fx:id="addStand_Button"
+	private Button addStand_Button; // Value injected by FXMLLoader
 
 	private MainController mainCon;
 
@@ -48,28 +62,43 @@ public class AddStandController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		assert lblUsername != null : "fx:id=\"lblUsername\" was not injected: check your FXML file 'AddStand.fxml'.";
-		assert txtStandOwner != null : "fx:id=\"txtStandOwner\" was not injected: check your FXML file 'AddStand.fxml'.";
-		assert txtStandName != null : "fx:id=\"txtStandName\" was not injected: check your FXML file 'AddStand.fxml'.";
-		assert txtStandLocation != null : "fx:id=\"txtStandLocation\" was not injected: check your FXML file 'AddStand.fxml'.";
-		
+		assert addStand_AnchorPane != null : "fx:id=\"addStand_AnchorPane\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert userName_Lable != null : "fx:id=\"userName_Lable\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert logOut_Button != null : "fx:id=\"logOut_Button\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert standName_TextField != null : "fx:id=\"standName_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert standLocation_TextField != null : "fx:id=\"standLocation_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert standOwner_TextField != null : "fx:id=\"standOwner_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert addStand_Button != null : "fx:id=\"addStand_Button\" was not injected: check your FXML file 'AddStand.fxml'.";
+		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.logOut();
+			}
+		});
 	}
 
-	@FXML
-	void addStand(ActionEvent event) {
-		try {
-			Stand newStand = new Stand(txtStandName.getText(), txtStandLocation.getText(), txtStandOwner.getText());
-			new AddStand(newStand);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+	final EventHandler<Event> addStandHandler = new EventHandler<Event>() {
+		@Override
+		public void handle(Event event) {
+			if (event.getEventType() != ActionEvent.ANY) {
+				if (!((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+					return;
+				}
+			}
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(addStand_Button)
+				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(standOwner_TextField)) {
+				try {
+					Stand newStand = new Stand(standName_TextField.getText(), standLocation_TextField.getText(), standOwner_TextField.getText());
+					new AddStand(newStand);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
 		}
-		
-	}
-
-	@FXML
-	void logOut(ActionEvent event) {
-		mainCon.logOut();
-	}
+	};
+	
+	
+	
 
 }
