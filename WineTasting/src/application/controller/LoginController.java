@@ -79,13 +79,12 @@ public class LoginController implements Initializable {
 					|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(password_PasswordField)) {
 				User user = new User(LoginController.this.userName_TextField.getText(),
 						LoginController.this.password_PasswordField.getText());
-				LoginProcess lp = new LoginProcess(user);
+				LoginProcess lp = new LoginProcess(user, mainCon);
 				lp.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler<WorkerStateEvent>() {
 					@Override
 					public void handle(WorkerStateEvent t) {
 						Boolean result = lp.getValue();
 						if (result) {
-							LoginController.this.mainCon.setSession(new SessionInfos(user));
 							LoginController.this.mainCon.gotoOptions();
 						} else {
 							LoginController.this.lblError.setVisible(true);

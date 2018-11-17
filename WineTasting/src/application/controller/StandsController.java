@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.model.data.Stand;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -64,7 +66,7 @@ public class StandsController implements Initializable {
 	public StandsController(MainController mainController) {
 		// TODO Auto-generated constructor stub
 		this.mainCon = mainController;
-		stands_TableView.setItems(Stand.getStandList());
+
 	}
 
 	@Override
@@ -82,10 +84,18 @@ public class StandsController implements Initializable {
 		assert standName_TableColumn != null : "fx:id=\"standName_TableColumn\" was not injected: check your FXML file 'Stands.fxml'.";
 		assert standLocation_TableColumn != null : "fx:id=\"standLocation_TableColumn\" was not injected: check your FXML file 'Stands.fxml'.";
 		assert standOwner_TableColumn != null : "fx:id=\"standOwner_TableColumn\" was not injected: check your FXML file 'Stands.fxml'.";
+		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
+		stands_TableView.setItems(mainCon.getSession().getStandList());
 		standName_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandName());
 		standNr_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandId().asObject());
 		standLocation_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandLocation());
 		standOwner_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandOwner());
+		addStand_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoAddStand();
+			}
+		});
 	}
 
 }

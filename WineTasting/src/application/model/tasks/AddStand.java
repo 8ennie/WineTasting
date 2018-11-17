@@ -1,42 +1,34 @@
 package application.model.tasks;
 
+import java.io.IOException;
+
 import application.model.data.Stand;
 import javafx.concurrent.Task;
 
 public class AddStand extends Task<Object>{
 
-	private final Stand newStand;
-	private final String standName;
-	private final String standLocation;
-	private final String standOwner;
 	
 	
+	private final Stand stand;
 	
 	
 	public AddStand(Stand stand) {
-		this.newStand = stand;
-		this.standName = stand.getStandName().get();
-		this.standLocation = stand.getStandLocation().get();
-		this.standOwner = stand.getStandOwner().get();
-		Stand.addStandList(stand);
+		this.stand = stand;
 	}
 
-	public boolean saveStand() {
-		try {
-			CsvFileWriter.writeStandToCsvFile("./src/application/model/data/Stand.csv", newStand);
-			CsvFileReader.readCsvFile("./src/application/model/data/Stand.csv");
-			return true;
-		} catch (Exception e) {
-			System.out.println(e);
+	private boolean writeToFile(){
+		try{
+			StandFileHandler.persistUser(this.stand);
+		} catch (IOException e){
+			e.printStackTrace();
 			return false;
 		}
+		return true;
 	}
 
-
 	@Override
-	protected Object call() throws Exception {
-		// TODO Auto-generated method stub
-		return saveStand();
+	protected Boolean call() throws Exception{
+		return this.writeToFile();
 	}
 
 }

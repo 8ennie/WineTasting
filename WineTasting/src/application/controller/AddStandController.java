@@ -69,6 +69,9 @@ public class AddStandController implements Initializable {
 		assert standLocation_TextField != null : "fx:id=\"standLocation_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert standOwner_TextField != null : "fx:id=\"standOwner_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert addStand_Button != null : "fx:id=\"addStand_Button\" was not injected: check your FXML file 'AddStand.fxml'.";
+		this.userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
+		this.addStand_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.addStandHandler);
+		this.addStand_Button.addEventHandler(ActionEvent.ANY, this.addStandHandler);
 		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -88,7 +91,7 @@ public class AddStandController implements Initializable {
 			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(addStand_Button)
 				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(standOwner_TextField)) {
 				try {
-					Stand newStand = new Stand(standName_TextField.getText(), standLocation_TextField.getText(), standOwner_TextField.getText());
+					Stand newStand = new Stand(mainCon.getSession().getStandList().size()+1,standName_TextField.getText(), standLocation_TextField.getText(), standOwner_TextField.getText());
 					new AddStand(newStand);
 				} catch (Exception e) {
 					// TODO: handle exception
