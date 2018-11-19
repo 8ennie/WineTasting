@@ -46,6 +46,11 @@
                         <Insets bottom="5.0" right="15.0" />
                      </GridPane.margin>
                   </Button>
+                  <Button fx:id="back_Button" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="&lt; Back">
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
+                  </Button>
                </children>
             </GridPane>
          </top>

@@ -96,6 +96,18 @@ public class StandsController implements Initializable {
 				mainCon.gotoAddStand();
 			}
 		});
+		back_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoOptions();
+			}
+		});
+		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.logOut();
+			}
+		});
 	}
 
 }

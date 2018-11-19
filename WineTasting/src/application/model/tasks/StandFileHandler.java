@@ -35,7 +35,7 @@ public class StandFileHandler{
 
 	public static void persistUser(Stand stand) throws IOException{
 		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true));
-		writer.write(stand.getStandId() + ";" + stand.getStandName() + ";" + stand.getStandLocation() + ";" + stand.getStandOwner());
+		writer.write(stand.getStandId().get() + ";" + stand.getStandName().get() + ";" + stand.getStandLocation().get() + ";" + stand.getStandOwner().get());
 		writer.newLine();
 		writer.flush();
 		writer.close();

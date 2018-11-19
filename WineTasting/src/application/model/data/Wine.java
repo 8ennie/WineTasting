@@ -1,43 +1,54 @@
 package application.model.data;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Wine {
 
-	private int wineId;
-	private String name;
-	private String description;
-	private int standId;
-	
+	private IntegerProperty wineId;
+	private StringProperty name;
+	private StringProperty description;
+	private IntegerProperty standId;
+
 	public Wine(int wineId, String name, String description, int standId) {
-		this.wineId = wineId;
-		this.name = name;
-		this.description = description;
-		this.standId = standId;
+		this.wineId = new SimpleIntegerProperty(wineId);
+		this.name = new SimpleStringProperty(name);
+		this.description = new SimpleStringProperty(description);
+		this.standId = new SimpleIntegerProperty(standId);
 	}
-	
-	public int getWineId() {
+
+	public IntegerProperty getWineId() {
 		return wineId;
 	}
-	public String getName() {
+
+	public StringProperty getName() {
 		return name;
 	}
-	public String getDescription() {
+
+	public StringProperty getDescription() {
 		return description;
 	}
-	public int getStandId() {
+
+	public IntegerProperty getStandId() {
 		return standId;
 	}
-	public void setWineId(int wineId) {
+
+	public void setWineId(IntegerProperty wineId) {
 		this.wineId = wineId;
 	}
-	public void setName(String name) {
+
+	public void setName(StringProperty name) {
 		this.name = name;
 	}
-	public void setDescription(String description) {
+
+	public void setDescription(StringProperty description) {
 		this.description = description;
 	}
-	public void setStandId(int standId) {
+
+	public void setStandId(IntegerProperty standId) {
 		this.standId = standId;
 	}
-	
-	
+
 }

@@ -52,6 +52,9 @@ public class AddStandController implements Initializable {
 
 	@FXML // fx:id="addStand_Button"
 	private Button addStand_Button; // Value injected by FXMLLoader
+	
+	@FXML // fx:id="back_Button"
+    private Button back_Button; // Value injected by FXMLLoader
 
 	private MainController mainCon;
 
@@ -65,6 +68,7 @@ public class AddStandController implements Initializable {
 		assert addStand_AnchorPane != null : "fx:id=\"addStand_AnchorPane\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert userName_Lable != null : "fx:id=\"userName_Lable\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert logOut_Button != null : "fx:id=\"logOut_Button\" was not injected: check your FXML file 'AddStand.fxml'.";
+		assert back_Button != null : "fx:id=\"back_Button\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert standName_TextField != null : "fx:id=\"standName_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert standLocation_TextField != null : "fx:id=\"standLocation_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
 		assert standOwner_TextField != null : "fx:id=\"standOwner_TextField\" was not injected: check your FXML file 'AddStand.fxml'.";
@@ -76,6 +80,12 @@ public class AddStandController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				mainCon.logOut();
+			}
+		});
+		back_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoStands();
 			}
 		});
 	}
@@ -92,7 +102,10 @@ public class AddStandController implements Initializable {
 				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(standOwner_TextField)) {
 				try {
 					Stand newStand = new Stand(mainCon.getSession().getStandList().size()+1,standName_TextField.getText(), standLocation_TextField.getText(), standOwner_TextField.getText());
-					new AddStand(newStand);
+					AddStand addStand = new AddStand(newStand);
+					new Thread(addStand).start();
+					mainCon.gotoStands();
+					mainCon.getSession().addStand(newStand);;
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
