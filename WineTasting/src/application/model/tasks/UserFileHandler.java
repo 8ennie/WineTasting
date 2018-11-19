@@ -41,7 +41,6 @@ public class UserFileHandler{
 			while ((line = reader.readLine()) != null){
 				String[] linesSplit = line.trim().split(";");
 				User tempUser = new User(linesSplit[0], linesSplit[1]);
-				System.out.println(tempUser);
 				if(!usersFromFile.contains(tempUser)){
 					usersFromFile.add(tempUser);
 				}

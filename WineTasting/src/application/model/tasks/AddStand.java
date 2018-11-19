@@ -5,7 +5,7 @@ import java.io.IOException;
 import application.model.data.Stand;
 import javafx.concurrent.Task;
 
-public class AddStand extends Task<Object>{
+public class AddStand extends Task<Boolean>{
 
 	
 	
@@ -18,7 +18,7 @@ public class AddStand extends Task<Object>{
 
 	private boolean writeToFile(){
 		try{
-			StandFileHandler.persistUser(this.stand);
+			StandFileHandler.persistStand(this.stand);
 		} catch (IOException e){
 			e.printStackTrace();
 			return false;

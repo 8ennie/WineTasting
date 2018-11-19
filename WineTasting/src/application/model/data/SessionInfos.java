@@ -48,4 +48,8 @@ public class SessionInfos {
 	public void addStand(Stand stand) {
 		this.standList.add(stand);
 	}
+
+	public void addWine(Wine newWine) {
+		this.wineList.add(newWine);	
+	}
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -58,22 +59,20 @@
          <bottom>
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="55.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="167.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="136.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="126.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="search_Button" mnemonicParsing="false" text="Search" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button fx:id="removeStand_Button" mnemonicParsing="false" text="Remove" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Label prefHeight="17.0" prefWidth="58.0" text="Search:">
                      <GridPane.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </GridPane.margin>
-                  </Button>
+                        <Insets left="5.0" />
+                     </GridPane.margin></Label>
                   <Button fx:id="editWines_Button" mnemonicParsing="false" text="Edit Stand Wines" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="15.0" top="15.0" />
@@ -84,6 +83,8 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>
                   </Button>
+                  <Button fx:id="removeStand_Button" mnemonicParsing="false" text="Remove" GridPane.columnIndex="4" />
+                  <TextField fx:id="search_TextField" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </bottom>

@@ -11,45 +11,52 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import application.model.data.Stand;
+import application.model.data.Wine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * @author Noah Ruben
- * @see <a href="https://github.com/8ennie/WineTasting">Github</a>
+ * @author bcwie
+ *
  */
-public class StandFileHandler{
-	private static final String PATH = new File("").getAbsolutePath() + "\\WineTasting\\src\\application\\model\\data\\Stand.csv";
+public class WineFileHander {
+	private static final String PATH = new File("").getAbsolutePath() + "\\WineTasting\\src\\application\\model\\data\\Wine.csv";
 
-	private static ObservableList<Stand> standFromFile = FXCollections.observableArrayList();
+	private static ObservableList<Wine> standFromFile = FXCollections.observableArrayList();
 
-	public static ObservableList<Stand> getStand(){
-		readStands();
+	public static ObservableList<Wine> getWine(){
+		readWine();
 		return standFromFile;
 
 	}
 
-	public static void persistStand(Stand stand) throws IOException{
+	public static void persistWine(Wine wine) throws IOException{
 		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true));
-		writer.write(stand.getStandId().get() + ";" + stand.getStandName().get() + ";" + stand.getStandLocation().get() + ";" + stand.getStandOwner().get());
+		writer.write(wine.getWineId().get() + ";" + wine.getName().get() + ";" + wine.getDescription().get() + ";" + wine.getStand().get().getStandId().get());
 		writer.newLine();
 		writer.flush();
 		writer.close();
 	}
 
-	private static void readStands(){
+	private static void readWine(){
 		try{
-			standFromFile.clear();
+
 			FileInputStream fstream = new FileInputStream(PATH);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fstream));
+
 			String line = null;
 			while ((line = reader.readLine()) != null){
 				String[] linesSplit = line.trim().split(";");
-				Stand tempStand = new Stand(Integer.parseInt(linesSplit[0]), linesSplit[1],linesSplit[2],linesSplit[3]);
+				ObservableList<Stand> standList =StandFileHandler.getStand();
+				Stand wineStand = standList.get(0);
+				for (Stand stand : standList) {
+					if(stand.getStandId().get() == Integer.parseInt(linesSplit[3])) {
+						wineStand = stand;
+					}
+				}
+				Wine tempStand = new Wine(Integer.parseInt(linesSplit[0]), linesSplit[1],linesSplit[2],wineStand);
 				if(!standFromFile.contains(tempStand)){
 					standFromFile.add(tempStand);
 				}

@@ -8,13 +8,20 @@ import java.util.ResourceBundle;
 
 import application.model.data.Stand;
 import application.model.data.Wine;
+import application.model.tasks.AddWine;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -42,7 +49,7 @@ public class EditWineController implements Initializable {
 	private Label standName_Lable; // Value injected by FXMLLoader
 
 	@FXML // fx:id="wines_ChoiceBox"
-	private ChoiceBox<?> wines_ChoiceBox; // Value injected by FXMLLoader
+	private ChoiceBox<Wine> wines_ChoiceBox; // Value injected by FXMLLoader
 
 	@FXML // fx:id="removeWine_Button"
 	private Button removeWine_Button; // Value injected by FXMLLoader
@@ -76,9 +83,56 @@ public class EditWineController implements Initializable {
 		assert wineName_TextField != null : "fx:id=\"wineName_TextField\" was not injected: check your FXML file 'EditWine.fxml'.";
 		assert addWine_Button != null : "fx:id=\"addWine_Button\" was not injected: check your FXML file 'EditWine.fxml'.";
 		assert finished_Button != null : "fx:id=\"finished_Button\" was not injected: check your FXML file 'EditWine.fxml'.";
-
+		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
+		standName_Lable.setText(stand.getStandName().get());
+		
+		ObservableList<Wine> wineList = mainCon.getSession().getWineList();
+		ObservableList<Wine> standWineList = FXCollections.observableArrayList();
+		for (Wine wine : wineList) {
+			if(wine.getStand().get().getStandId() == stand.getStandId()) {
+				standWineList.add(wine);
+			}
+		}
+		wines_ChoiceBox.setItems(standWineList);
+		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.logOut();
+			}
+		});
+		finished_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoStands();
+			}
+		});
+		this.editWine_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.addWineHandler);
+		this.addWine_Button.addEventHandler(ActionEvent.ANY, this.addWineHandler);
 	}
 
-	
+	final EventHandler<Event> addWineHandler = new EventHandler<Event>() {
+		@Override
+		public void handle(Event event) {
+			if (event.getEventType() != ActionEvent.ANY) {
+				if (!((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+					return;
+				}
+			}
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(addWine_Button)
+				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(wineName_TextField)) {
+				try {
+					Wine newWine = new Wine(mainCon.getSession().getWineList().size(),wineName_TextField.getText(),"",stand);
+					AddWine addStand = new AddWine(newWine);
+					new Thread(addStand).start();
+					mainCon.getSession().addWine(newWine);
+					wines_ChoiceBox.getItems().add(newWine);
+					wineName_TextField.clear();
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		}
+	};
 
 }

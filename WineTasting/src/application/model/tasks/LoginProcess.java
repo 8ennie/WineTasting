@@ -44,6 +44,7 @@ public class LoginProcess extends Task<Boolean> {
 			SessionInfos sInf = new SessionInfos(this.user);
 			this.mainCon.setSession(sInf);
 			sInf.setStandList(StandFileHandler.getStand());
+			sInf.setWineList(WineFileHander.getWine());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

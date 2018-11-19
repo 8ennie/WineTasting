@@ -3,8 +3,11 @@ package application.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.model.data.Stand;
 import application.model.data.Wine;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,23 +42,20 @@ public class SearchController implements Initializable {
 	@FXML // fx:id="search_TextField"
 	private TextField search_TextField; // Value injected by FXMLLoader
 
-	@FXML // fx:id="search_Button"
-	private Button search_Button; // Value injected by FXMLLoader
-
 	@FXML // fx:id="result_TableView"
 	private TableView<Wine> result_TableView; // Value injected by FXMLLoader
 
 	@FXML // fx:id="standNr_TableColumn"
-	private TableColumn<Stand, Integer> standNr_TableColumn; // Value injected by FXMLLoader
+	private TableColumn<Wine, Integer> standNr_TableColumn; // Value injected by FXMLLoader
 
 	@FXML // fx:id="standName_TableColumn"
-	private TableColumn<Stand, String> standName_TableColumn; // Value injected by FXMLLoader
+	private TableColumn<Wine, String> standName_TableColumn; // Value injected by FXMLLoader
 
 	@FXML // fx:id="standLocation_TableColumn"
-	private TableColumn<Stand, String> standLocation_TableColumn; // Value injected by FXMLLoader
+	private TableColumn<Wine, String> standLocation_TableColumn; // Value injected by FXMLLoader
 
 	@FXML // fx:id="standOwner_TableColumn"
-	private TableColumn<Stand, String> standOwner_TableColumn; // Value injected by FXMLLoader
+	private TableColumn<Wine, String> standOwner_TableColumn; // Value injected by FXMLLoader
 
 	@FXML // fx:id="wineName_TableColumn"
 	private TableColumn<Wine, String> wineName_TableColumn; // Value injected by FXMLLoader
@@ -68,9 +68,11 @@ public class SearchController implements Initializable {
 
 	private MainController mainCon;
 
+	private ObservableList<Wine> wineList = FXCollections.observableArrayList();
+
 	public SearchController(MainController mainController) {
-		// TODO Auto-generated constructor stub
 		this.mainCon = mainController;
+		this.wineList = mainCon.getSession().getWineList();
 	}
 
 	@Override
@@ -80,7 +82,6 @@ public class SearchController implements Initializable {
 		assert logOut_Button != null : "fx:id=\"logOut_Button\" was not injected: check your FXML file 'Search.fxml'.";
 		assert back_Button != null : "fx:id=\"back_Button\" was not injected: check your FXML file 'Search.fxml'.";
 		assert search_TextField != null : "fx:id=\"search_TextField\" was not injected: check your FXML file 'Search.fxml'.";
-		assert search_Button != null : "fx:id=\"search_Button\" was not injected: check your FXML file 'Search.fxml'.";
 		assert result_TableView != null : "fx:id=\"result_TableView\" was not injected: check your FXML file 'Search.fxml'.";
 		assert standNr_TableColumn != null : "fx:id=\"standNr_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
 		assert standName_TableColumn != null : "fx:id=\"standName_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
@@ -89,16 +90,44 @@ public class SearchController implements Initializable {
 		assert wineName_TableColumn != null : "fx:id=\"wineName_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
 		assert evaluation_Button != null : "fx:id=\"evaluation_Button\" was not injected: check your FXML file 'Search.fxml'.";
 		assert editStand_Button != null : "fx:id=\"editStand_Button\" was not injected: check your FXML file 'Search.fxml'.";
-		
 		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
-		result_TableView.setItems(mainCon.getSession().getWineList());
-		standName_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandName());
-		standNr_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandId().asObject());
-		standLocation_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandLocation());
-		standOwner_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStandOwner());
-		
-		
-		
+
+		standName_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStand().get().getStandName());
+		standNr_TableColumn
+				.setCellValueFactory(cellData -> cellData.getValue().getStand().get().getStandId().asObject());
+		standLocation_TableColumn
+				.setCellValueFactory(cellData -> cellData.getValue().getStand().get().getStandLocation());
+		standOwner_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getStand().get().getStandOwner());
+		wineName_TableColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
+
+		FilteredList<Wine> filteredData = new FilteredList<>(wineList, p -> true);
+
+		search_TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(wine -> {
+				// If filter text is empty, display all Wines.
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+
+				String lowerCaseFilter = newValue.toLowerCase();
+
+				if (wine.getStand().get().getStandName().get().toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches Stand name.
+				} else if (wine.getStand().get().getStandLocation().get().contains(lowerCaseFilter)) {
+					return true; // Filter matches Stand location.
+				} else if (wine.getName().get().contains(lowerCaseFilter)) {
+					return true; // Filter matches Wine name.
+				}
+				return false; // Does not match.
+			});
+		});
+
+		SortedList<Wine> sortedWineList = new SortedList<>(filteredData);
+
+		sortedWineList.comparatorProperty().bind(result_TableView.comparatorProperty());
+
+		result_TableView.setItems(sortedWineList);
+
 		back_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

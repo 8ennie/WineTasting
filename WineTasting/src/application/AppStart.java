@@ -16,5 +16,4 @@ public class AppStart extends Application {
 		MainController mainController = new MainController(stage);
 		mainController.gotoLogin();
 	}
-
 }

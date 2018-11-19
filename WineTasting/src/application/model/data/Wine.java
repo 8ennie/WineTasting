@@ -1,7 +1,9 @@
 package application.model.data;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -10,15 +12,20 @@ public class Wine {
 	private IntegerProperty wineId;
 	private StringProperty name;
 	private StringProperty description;
-	private IntegerProperty standId;
+	private ObjectProperty<Stand> stand;
 
-	public Wine(int wineId, String name, String description, int standId) {
+	public Wine(int wineId, String name, String description, Stand stand) {
 		this.wineId = new SimpleIntegerProperty(wineId);
 		this.name = new SimpleStringProperty(name);
 		this.description = new SimpleStringProperty(description);
-		this.standId = new SimpleIntegerProperty(standId);
+		this.stand = new SimpleObjectProperty<Stand>(stand);
 	}
 
+	@Override
+	public String toString() {
+	    return this.getName().get();
+	}
+	
 	public IntegerProperty getWineId() {
 		return wineId;
 	}
@@ -31,8 +38,8 @@ public class Wine {
 		return description;
 	}
 
-	public IntegerProperty getStandId() {
-		return standId;
+	public ObjectProperty<Stand> getStand() {
+		return stand;
 	}
 
 	public void setWineId(IntegerProperty wineId) {
@@ -47,8 +54,8 @@ public class Wine {
 		this.description = description;
 	}
 
-	public void setStandId(IntegerProperty standId) {
-		this.standId = standId;
+	public void setStand(ObjectProperty<Stand> stand) {
+		this.stand = stand;
 	}
 
 }
