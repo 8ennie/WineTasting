@@ -1,6 +1,9 @@
 package application.controller;
 
 import java.net.URL;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -76,7 +79,19 @@ public class ViewEvaluationController implements Initializable {
 		assert sour_Lable != null : "fx:id=\"sour_Lable\" was not injected: check your FXML file 'ViewEvaluation.fxml'.";
 		assert standRieview_Lable != null : "fx:id=\"standRieview_Lable\" was not injected: check your FXML file 'ViewEvaluation.fxml'.";
 		assert finished_Button != null : "fx:id=\"finished_Button\" was not injected: check your FXML file 'ViewEvaluation.fxml'.";
-
+		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
+		finished_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.gotoSearch();
+			}
+		});
+		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainCon.logOut();
+			}
+		});
 	}
 
 	

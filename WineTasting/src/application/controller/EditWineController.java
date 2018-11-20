@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import application.model.data.Stand;
 import application.model.data.Wine;
 import application.model.tasks.AddWine;
+import application.model.tasks.WineFileHander;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,7 +90,7 @@ public class EditWineController implements Initializable {
 		ObservableList<Wine> wineList = mainCon.getSession().getWineList();
 		ObservableList<Wine> standWineList = FXCollections.observableArrayList();
 		for (Wine wine : wineList) {
-			if(wine.getStand().get().getStandId() == stand.getStandId()) {
+			if(wine.getStand().get().getStandId().get() == stand.getStandId().get()) {
 				standWineList.add(wine);
 			}
 		}
@@ -108,6 +109,8 @@ public class EditWineController implements Initializable {
 		});
 		this.editWine_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.addWineHandler);
 		this.addWine_Button.addEventHandler(ActionEvent.ANY, this.addWineHandler);
+		this.removeWine_Button.addEventHandler(ActionEvent.ANY, this.deleteWineHandler);
+		this.editWine_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.deleteWineHandler);
 	}
 
 	final EventHandler<Event> addWineHandler = new EventHandler<Event>() {
@@ -121,12 +124,33 @@ public class EditWineController implements Initializable {
 			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(addWine_Button)
 				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(wineName_TextField)) {
 				try {
-					Wine newWine = new Wine(mainCon.getSession().getWineList().size(),wineName_TextField.getText(),"",stand);
+					Wine newWine = new Wine((mainCon.getSession().getWineList().get(mainCon.getSession().getWineList().size()-1).getWineId().get())+1,wineName_TextField.getText(),"",stand);
 					AddWine addStand = new AddWine(newWine);
 					new Thread(addStand).start();
 					mainCon.getSession().addWine(newWine);
 					wines_ChoiceBox.getItems().add(newWine);
 					wineName_TextField.clear();
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		}
+	};
+	
+	final EventHandler<Event> deleteWineHandler = new EventHandler<Event>() {
+		@Override
+		public void handle(Event event) {
+			if (event.getEventType() != ActionEvent.ANY) {
+				if (!((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+					return;
+				}
+			}
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(removeWine_Button)) {
+				try {
+					Wine delWine = wines_ChoiceBox.getSelectionModel().getSelectedItem();
+					wines_ChoiceBox.getItems().remove(delWine);
+					WineFileHander.deleteWine(delWine);
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();

@@ -23,6 +23,23 @@ public class UserFileHandler{
 
 	}
 
+	public static void deleteUser(User delUser) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, false));
+		for (User user : usersFromFile) {
+			if(user != delUser) {
+				try {
+					writer.write(user.getUsername() + ";" + user.getPassword());
+					writer.newLine();
+					writer.flush();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		writer.close();
+	}
+	
+	
 	public static void persistUser(User user) throws IOException{
 		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true));
 		writer.write(user.getUsername() + ";" + user.getPassword());

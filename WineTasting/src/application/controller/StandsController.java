@@ -4,12 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.model.data.Stand;
-import application.model.data.Wine;
+import application.model.tasks.StandFileHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class StandsController implements Initializable {
@@ -123,9 +126,32 @@ public class StandsController implements Initializable {
 			}
 		});
 		setUpTable();
-		
+		this.removeStand_Button.addEventHandler(ActionEvent.ANY, this.deleteStandHandler);
+		this.stands_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, this.deleteStandHandler);
 	}
 
+	final EventHandler<Event> deleteStandHandler = new EventHandler<Event>() {
+		@Override
+		public void handle(Event event) {
+			if (event.getEventType() != ActionEvent.ANY) {
+				if (!((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+					return;
+				}
+			}
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(removeStand_Button)) {
+				try {
+					Stand delStand = stands_TableView.getSelectionModel().getSelectedItem();
+					standList.remove(delStand);
+					StandFileHandler.deleteStand(delStand);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		}
+	};
+	
+	
 	private void setUpTable() {
 		FilteredList<Stand> filteredData = new FilteredList<>(standList, p -> true);
 

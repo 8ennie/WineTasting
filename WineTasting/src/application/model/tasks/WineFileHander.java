@@ -22,51 +22,69 @@ import javafx.collections.ObservableList;
  *
  */
 public class WineFileHander {
-	private static final String PATH = new File("").getAbsolutePath() + "\\WineTasting\\src\\application\\model\\data\\Wine.csv";
+	private static final String PATH = new File("").getAbsolutePath()
+			+ "\\WineTasting\\src\\application\\model\\data\\Wine.csv";
 
-	private static ObservableList<Wine> standFromFile = FXCollections.observableArrayList();
+	private static ObservableList<Wine> wineFromFile = FXCollections.observableArrayList();
 
-	public static ObservableList<Wine> getWine(){
+	public static ObservableList<Wine> getWine() {
 		readWine();
-		return standFromFile;
+		return wineFromFile;
 
 	}
 
-	public static void persistWine(Wine wine) throws IOException{
+	public static void persistWine(Wine wine) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true));
-		writer.write(wine.getWineId().get() + ";" + wine.getName().get() + ";" + wine.getDescription().get() + ";" + wine.getStand().get().getStandId().get());
+		writer.write(wine.getWineId().get() + ";" + wine.getName().get() + ";" + wine.getDescription().get() + ";"
+				+ wine.getStand().get().getStandId().get());
 		writer.newLine();
 		writer.flush();
 		writer.close();
 	}
 
-	private static void readWine(){
-		try{
+	public static void deleteWine(Wine delWine) throws IOException {
+		wineFromFile.remove(delWine);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, false));
+		for (Wine wine : wineFromFile) {
+			try {
+				writer.write(wine.getWineId().get() + ";" + wine.getName().get() + ";" + wine.getDescription().get()
+						+ ";" + wine.getStand().get().getStandId().get());
+				writer.newLine();
+				writer.flush();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		writer.close();
+	}
+
+	private static void readWine() {
+		try {
 
 			FileInputStream fstream = new FileInputStream(PATH);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fstream));
 
 			String line = null;
-			while ((line = reader.readLine()) != null){
+			while ((line = reader.readLine()) != null) {
 				String[] linesSplit = line.trim().split(";");
-				ObservableList<Stand> standList =StandFileHandler.getStand();
+				ObservableList<Stand> standList = StandFileHandler.getStand();
 				Stand wineStand = standList.get(0);
 				for (Stand stand : standList) {
-					if(stand.getStandId().get() == Integer.parseInt(linesSplit[3])) {
+					if (stand.getStandId().get() == Integer.parseInt(linesSplit[3])) {
 						wineStand = stand;
 					}
 				}
-				Wine tempStand = new Wine(Integer.parseInt(linesSplit[0]), linesSplit[1],linesSplit[2],wineStand);
-				if(!standFromFile.contains(tempStand)){
-					standFromFile.add(tempStand);
+				Wine tempStand = new Wine(Integer.parseInt(linesSplit[0]), linesSplit[1], linesSplit[2], wineStand);
+				if (!wineFromFile.contains(tempStand)) {
+					wineFromFile.add(tempStand);
 				}
 			}
 			// Close the input stream
 			reader.close();
-		} catch (FileNotFoundException exception){
+		} catch (FileNotFoundException exception) {
 			System.out.println(exception.getMessage());
 
-		} catch (IOException e){
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

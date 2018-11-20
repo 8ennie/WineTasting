@@ -80,7 +80,7 @@ public class OptionsController implements Initializable {
 		viewEvaluation_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				mainCon.gotoViewEvaluation();
+				mainCon.gotoSearch();
 			}
 		});
 	}
@@ -99,7 +99,7 @@ public class OptionsController implements Initializable {
 					mainCon.gotoSearch();
 				}
 				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(viewEvaluation_Button)) {
-					mainCon.gotoViewEvaluation();
+					mainCon.gotoSearch();
 				}
 			}
 

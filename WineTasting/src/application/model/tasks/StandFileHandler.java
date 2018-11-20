@@ -11,8 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import application.model.data.Stand;
 import javafx.collections.FXCollections;
@@ -41,6 +39,22 @@ public class StandFileHandler{
 		writer.close();
 	}
 
+	public static void deleteStand(Stand delStand) throws IOException {
+		standFromFile.remove(delStand);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, false));
+		for (Stand stand : standFromFile) {
+			try {
+				writer.write(stand.getStandId().get() + ";" + stand.getStandName().get() + ";" + stand.getStandLocation().get() + ";" + stand.getStandOwner().get());
+				writer.newLine();
+				writer.flush();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		writer.close();
+	}
+	
+	
 	private static void readStands(){
 		try{
 			standFromFile.clear();
