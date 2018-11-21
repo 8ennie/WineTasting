@@ -12,16 +12,15 @@ import javafx.concurrent.Task;
 
 public class LoginProcess extends Task<Boolean> {
 
-
 	private final User user;
 	private final MainController mainCon;
 
 	@Override
 	protected Boolean call() throws Exception {
-		if(verifyLogin()) {
+		if (verifyLogin()) {
 			login();
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -32,7 +31,7 @@ public class LoginProcess extends Task<Boolean> {
 	}
 
 	public boolean verifyLogin() {
-		UserDAO userDAO = new UserDAO(); 
+		UserDAO userDAO = new UserDAO();
 		List<User> users = null;
 		try {
 			users = userDAO.getUserByName(this.user.getUsername());
@@ -41,7 +40,7 @@ public class LoginProcess extends Task<Boolean> {
 			e.printStackTrace();
 		}
 		for (User user : users) {
-			if(this.user.isEqualTo(user)) {
+			if (this.user.isEqualTo(user)) {
 				return true;
 			}
 		}
@@ -50,14 +49,14 @@ public class LoginProcess extends Task<Boolean> {
 
 	private void login() {
 		try {
-			SessionInfos sInf = new SessionInfos(this.user);
-			this.mainCon.setSession(sInf);
-			sInf.setStandList(StandFileHandler.getStand());
-			sInf.setWineList(WineFileHander.getWine());
+			SessionInfos sessionInfos = new SessionInfos(this.user);
+			this.mainCon.setSession(sessionInfos);
+			sessionInfos.setStandList(StandFileHandler.getStand());
+			sessionInfos.setWineList(WineFileHander.getWine());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 	}
-	
+
 }
