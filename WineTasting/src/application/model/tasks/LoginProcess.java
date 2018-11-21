@@ -1,11 +1,13 @@
 package application.model.tasks;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import application.controller.LoginController;
 import application.controller.MainController;
 import application.model.data.SessionInfos;
 import application.model.data.User;
+import application.model.data.UserDAO;
 import javafx.concurrent.Task;
 
 public class LoginProcess extends Task<Boolean> {
@@ -30,7 +32,14 @@ public class LoginProcess extends Task<Boolean> {
 	}
 
 	public boolean verifyLogin() {
-		List<User> users = UserFileHandler.getUsers();
+		UserDAO userDAO = new UserDAO(); 
+		List<User> users = null;
+		try {
+			users = userDAO.getUserByName(this.user.getUsername());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (User user : users) {
 			if(this.user.isEqualTo(user)) {
 				return true;
