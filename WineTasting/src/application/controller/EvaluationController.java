@@ -67,7 +67,7 @@ public class EvaluationController implements Initializable {
 
 	private MainController mainCon;
 
-	public EvaluationController(MainController mainController) {
+	public EvaluationController(MainController mainController, Wine wine) {
 		// TODO Auto-generated constructor stub
 		this.mainCon = mainController;
 	}

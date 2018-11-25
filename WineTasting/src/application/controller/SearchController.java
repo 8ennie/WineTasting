@@ -3,12 +3,17 @@ package application.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.model.data.SearchStatus;
+import application.model.data.User;
 import application.model.data.Wine;
+import application.model.tasks.LoginProcess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class SearchController implements Initializable {
@@ -60,19 +67,27 @@ public class SearchController implements Initializable {
 	@FXML // fx:id="wineName_TableColumn"
 	private TableColumn<Wine, String> wineName_TableColumn; // Value injected by FXMLLoader
 
-	@FXML // fx:id="evaluation_Button"
-	private Button evaluation_Button; // Value injected by FXMLLoader
+	@FXML // fx:id="chooseStand_Button"
+	private Button chooseStand_Button; // Value injected by FXMLLoader
 
 	@FXML // fx:id="editStand_Button"
 	private Button editStand_Button; // Value injected by FXMLLoader
 
 	private MainController mainCon;
+	
+	private SearchStatus searchStatus;
 
 	private ObservableList<Wine> wineList = FXCollections.observableArrayList();
 
 	public SearchController(MainController mainController) {
 		this.mainCon = mainController;
 		this.wineList = mainCon.getSession().getWineList();
+	}
+
+	public SearchController(MainController mainController, SearchStatus searchStatus) {
+		this.mainCon = mainController;
+		this.wineList = mainCon.getSession().getWineList();
+		this.searchStatus = searchStatus;
 	}
 
 	@Override
@@ -88,7 +103,7 @@ public class SearchController implements Initializable {
 		assert standLocation_TableColumn != null : "fx:id=\"standLocation_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
 		assert standOwner_TableColumn != null : "fx:id=\"standOwner_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
 		assert wineName_TableColumn != null : "fx:id=\"wineName_TableColumn\" was not injected: check your FXML file 'Search.fxml'.";
-		assert evaluation_Button != null : "fx:id=\"evaluation_Button\" was not injected: check your FXML file 'Search.fxml'.";
+		assert chooseStand_Button != null : "fx:id=\"chooseStand_Button\" was not injected: check your FXML file 'Search.fxml'.";
 		assert editStand_Button != null : "fx:id=\"editStand_Button\" was not injected: check your FXML file 'Search.fxml'.";
 		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
 
@@ -148,4 +163,25 @@ public class SearchController implements Initializable {
 		});
 	}
 
+	final EventHandler<Event> ChooseStandHandler = new EventHandler<Event>() {
+		@Override
+		public void handle(Event event) {
+			if (event.getEventType() != ActionEvent.ANY) {
+				if (!((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+					return;
+				}
+			}
+
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(chooseStand_Button)) {
+				if (searchStatus.equals(SearchStatus.Evaluation)) {
+					mainCon.gotoViewEvaluation(result_TableView.getSelectionModel().getSelectedItem());
+				}else if(searchStatus.equals(SearchStatus.Evaluation)) {
+					mainCon.gotoEvaluation(result_TableView.getSelectionModel().getSelectedItem());
+				}
+				
+				
+			}
+		}
+	};
+	
 }

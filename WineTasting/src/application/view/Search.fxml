@@ -111,7 +111,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="evaluation_Button" mnemonicParsing="false" text="Evaluate" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button fx:id="chooseStand_Button" mnemonicParsing="false" text="Choose Stand" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </GridPane.margin>

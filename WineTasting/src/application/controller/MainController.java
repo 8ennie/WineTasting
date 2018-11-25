@@ -3,8 +3,10 @@
  */
 package application.controller;
 
+import application.model.data.SearchStatus;
 import application.model.data.SessionInfos;
 import application.model.data.Stand;
+import application.model.data.Wine;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -42,9 +44,9 @@ public class MainController {
 		}
 	}
 	
-	public void gotoEvaluation() {
+	public void gotoEvaluation(Wine wine) {
 		try {
-			this.replaceSceneContent("/application/view/Evaluate.fxml", new EvaluationController(this));
+			this.replaceSceneContent("/application/view/Evaluate.fxml", new EvaluationController(this,wine));
 
 		} catch (Exception ex) {
 			System.out.println("Evaluate: " + ex.getMessage());
@@ -60,9 +62,9 @@ public class MainController {
 		}
 	}
 	
-	public void gotoSearch() {
+	public void gotoSearch(SearchStatus searchStatus) {
 		try {
-			this.replaceSceneContent("/application/view/Search.fxml", new SearchController(this));
+			this.replaceSceneContent("/application/view/Search.fxml", new SearchController(this,searchStatus));
 
 		} catch (Exception ex) {
 			System.out.println("Search: " + ex.getMessage());
@@ -79,7 +81,7 @@ public class MainController {
 		}
 	}
 	
-	public void gotoViewEvaluation() {
+	public void gotoViewEvaluation(Wine wine) {
 		try {
 			this.replaceSceneContent("/application/view/ViewEvaluation.fxml", new ViewEvaluationController(this));
 

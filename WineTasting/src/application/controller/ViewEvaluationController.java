@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.ResourceBundle;
 
+import application.model.data.SearchStatus;
 import javafx.fxml.Initializable;
 
 public class ViewEvaluationController implements Initializable {
@@ -83,7 +84,7 @@ public class ViewEvaluationController implements Initializable {
 		finished_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				mainCon.gotoSearch();
+				mainCon.gotoSearch(SearchStatus.ViewEvaluation);
 			}
 		});
 		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {

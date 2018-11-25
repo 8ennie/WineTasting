@@ -3,7 +3,6 @@ package application.model.data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class UserDAO extends BaseDAO implements IUserDAO{
 		}
 		return users;
 	}
-
+	
 	@Override
 	public boolean persistUser(User user) throws SQLException{
 		PreparedStatement prepareStatement = this.conn.prepareStatement("INSERT INTO USER (USERNAME, PW) VALUES (?, ?)");

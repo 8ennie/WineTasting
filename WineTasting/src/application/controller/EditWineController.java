@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
 
 import application.model.data.Stand;
 import application.model.data.Wine;
+import application.model.data.WineDAO;
 import application.model.tasks.AddWine;
-import application.model.tasks.WineFileHander;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -125,9 +125,9 @@ public class EditWineController implements Initializable {
 				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(wineName_TextField)) {
 				try {
 					Wine newWine = new Wine((mainCon.getSession().getWineList().get(mainCon.getSession().getWineList().size()-1).getWineId().get())+1,wineName_TextField.getText(),"",stand);
-					AddWine addStand = new AddWine(newWine);
-					new Thread(addStand).start();
-					mainCon.getSession().addWine(newWine);
+					AddWine addWine = new AddWine(newWine,mainCon);
+					new Thread(addWine).start();
+					System.out.println(mainCon.getSession().getWineList().size());
 					wines_ChoiceBox.getItems().add(newWine);
 					wineName_TextField.clear();
 				} catch (Exception e) {
@@ -149,8 +149,9 @@ public class EditWineController implements Initializable {
 			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(removeWine_Button)) {
 				try {
 					Wine delWine = wines_ChoiceBox.getSelectionModel().getSelectedItem();
+					mainCon.getSession().getWineList().remove(delWine);
 					wines_ChoiceBox.getItems().remove(delWine);
-					WineFileHander.deleteWine(delWine);
+					new WineDAO().deleteWine(delWine);
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();

@@ -4,8 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Stand {
 
@@ -17,7 +15,6 @@ public class Stand {
 	
 	
 	public Stand(String standName, String standLocation, String standOwner) {
-		this.standId = new SimpleIntegerProperty();
 		this.standName = new SimpleStringProperty(standName);
 		this.standLocation = new SimpleStringProperty(standLocation);
 		this.standOwner = new SimpleStringProperty(standOwner);

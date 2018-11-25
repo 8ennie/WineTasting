@@ -102,7 +102,7 @@ public class AddStandController implements Initializable {
 				|| mainCon.getStage().getScene().focusOwnerProperty().get().equals(standOwner_TextField)) {
 				try {
 					Stand newStand = new Stand(mainCon.getSession().getStandList().get(mainCon.getSession().getStandList().size()-1).getStandId().get()+1,standName_TextField.getText(), standLocation_TextField.getText(), standOwner_TextField.getText());
-					AddStand addStand = new AddStand(newStand);
+					AddStand addStand = new AddStand(newStand,mainCon);
 					new Thread(addStand).start();
 					mainCon.gotoStands();
 					mainCon.getSession().addStand(newStand);;

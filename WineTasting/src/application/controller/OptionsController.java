@@ -7,6 +7,7 @@ package application.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.model.data.SearchStatus;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -74,13 +75,13 @@ public class OptionsController implements Initializable {
 		evaluation_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				mainCon.gotoSearch();
+				mainCon.gotoSearch(SearchStatus.Evaluation);
 			}
 		});
 		viewEvaluation_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				mainCon.gotoSearch();
+				mainCon.gotoSearch(SearchStatus.ViewEvaluation);
 			}
 		});
 	}
@@ -96,10 +97,10 @@ public class OptionsController implements Initializable {
 					mainCon.gotoStands();
 				}
 				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(evaluation_Button)) {
-					mainCon.gotoSearch();
+					mainCon.gotoSearch(SearchStatus.Evaluation);
 				}
 				if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(viewEvaluation_Button)) {
-					mainCon.gotoSearch();
+					mainCon.gotoSearch(SearchStatus.ViewEvaluation);
 				}
 			}
 

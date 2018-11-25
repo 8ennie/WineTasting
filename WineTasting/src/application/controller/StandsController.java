@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.model.data.Stand;
-import application.model.tasks.StandFileHandler;
+import application.model.data.StandDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -142,7 +142,7 @@ public class StandsController implements Initializable {
 				try {
 					Stand delStand = stands_TableView.getSelectionModel().getSelectedItem();
 					standList.remove(delStand);
-					StandFileHandler.deleteStand(delStand);
+					new StandDAO().deleteStand(delStand);
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();

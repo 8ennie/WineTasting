@@ -1,8 +1,9 @@
 package application.model.tasks;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 import application.model.data.User;
+import application.model.data.UserDAO;
 import javafx.concurrent.Task;
 
 public class RegisterUser extends Task<Boolean>{
@@ -13,10 +14,11 @@ public class RegisterUser extends Task<Boolean>{
 		this.user = user;
 	}
 
-	private boolean writeToFile(){
+	private boolean writeToDatabse(){
 		try{
-			UserFileHandler.persistUser(this.user);
-		} catch (IOException e){
+			new UserDAO().persistUser(this.user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -25,6 +27,6 @@ public class RegisterUser extends Task<Boolean>{
 
 	@Override
 	protected Boolean call() throws Exception{
-		return this.writeToFile();
+		return this.writeToDatabse();
 	}
 }
