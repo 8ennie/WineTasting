@@ -28,21 +28,21 @@ public class UserDAO extends BaseDAO implements IUserDAO{
 	
 	@Override
 	public User getUserByID(int id) throws SQLException {
-		PreparedStatement prepareStatement = this.conn.prepareStatement("Select USERNAME, PW from wine_test_db.USER WHERE ID = ?");
+		PreparedStatement prepareStatement = this.conn.prepareStatement("Select ID, USERNAME, PW from wine_test_db.USER WHERE ID = ?");
 		prepareStatement.setInt(1, id);
 		ResultSet rs = prepareStatement.executeQuery();
 		rs.next();
-		return new User(rs.getString("USERNAME"), rs.getString("PW"));
+		return new User(rs.getInt("ID"),rs.getString("USERNAME"), rs.getString("PW"));
 	}
 
 	@Override
 	public List<User> getUserByName(String name) throws SQLException {
 		List<User> users = new ArrayList<>();
-		PreparedStatement prepareStatement = this.conn.prepareStatement("Select USERNAME, PW from wine_test_db.USER WHERE USERNAME = ?");
+		PreparedStatement prepareStatement = this.conn.prepareStatement("Select ID, USERNAME, PW from wine_test_db.USER WHERE USERNAME = ?");
 		prepareStatement.setString(1, name);
 		ResultSet rs = prepareStatement.executeQuery();
 		while (rs.next()) {
-			users.add(new User(rs.getString("USERNAME"), rs.getString("PW")));
+			users.add(new User(rs.getInt("ID"),rs.getString("USERNAME"), rs.getString("PW")));
 		}
 		return users;
 	}

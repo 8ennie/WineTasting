@@ -17,7 +17,7 @@ import javafx.concurrent.Task;
 
 public class LoginProcess extends Task<Boolean> {
 
-	private final User user;
+	private User user;
 	private final MainController mainCon;
 
 	@Override
@@ -46,6 +46,7 @@ public class LoginProcess extends Task<Boolean> {
 		}
 		for (User user : users) {
 			if (this.user.isEqualTo(user)) {
+				this.user = user;
 				return true;
 			}
 		}

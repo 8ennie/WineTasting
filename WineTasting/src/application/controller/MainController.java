@@ -83,7 +83,7 @@ public class MainController {
 	
 	public void gotoViewEvaluation(Wine wine) {
 		try {
-			this.replaceSceneContent("/application/view/ViewEvaluation.fxml", new ViewEvaluationController(this));
+			this.replaceSceneContent("/application/view/ViewEvaluation.fxml", new ViewEvaluationController(this,wine));
 
 		} catch (Exception ex) {
 			System.out.println("ViewEvaluation: " + ex.getMessage());

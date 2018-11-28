@@ -7,18 +7,35 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class WineEvaluation {
 
+	private IntegerProperty wineEvaluationId;
 	private ObjectProperty<Wine> wine;
+	private ObjectProperty<User> user;
 	private IntegerProperty sweet;
 	private IntegerProperty salty;
 	private IntegerProperty bitter;
 	private IntegerProperty sour;
 
-	public WineEvaluation(Wine wine, int sweet, int salty, int bitter, int sour) {
+	public WineEvaluation(int id, Wine wine, User user, int sweet, int salty, int bitter, int sour) {
+		this.wineEvaluationId = new SimpleIntegerProperty(id);
 		this.wine = new SimpleObjectProperty<Wine>(wine);
+		this.user = new SimpleObjectProperty<User>(user);
 		this.sweet = new SimpleIntegerProperty(sweet);
 		this.salty = new SimpleIntegerProperty(salty);
 		this.bitter = new SimpleIntegerProperty(bitter);
 		this.sour = new SimpleIntegerProperty(sour);
+	}
+
+	public WineEvaluation(Wine wine, User user, int sweet, int salty, int bitter, int sour) {
+		this.wine = new SimpleObjectProperty<Wine>(wine);
+		this.user = new SimpleObjectProperty<User>(user);
+		this.sweet = new SimpleIntegerProperty(sweet);
+		this.salty = new SimpleIntegerProperty(salty);
+		this.bitter = new SimpleIntegerProperty(bitter);
+		this.sour = new SimpleIntegerProperty(sour);
+	}
+	
+	public IntegerProperty getWineEvaluationId() {
+		return wineEvaluationId;
 	}
 
 	public ObjectProperty<Wine> getWine() {
@@ -39,6 +56,14 @@ public class WineEvaluation {
 
 	public IntegerProperty getSour() {
 		return sour;
+	}
+
+	public ObjectProperty<User> getUser() {
+		return user;
+	}
+
+	public void setUser(ObjectProperty<User> user) {
+		this.user = user;
 	}
 
 	public void setWine(ObjectProperty<Wine> wine) {

@@ -13,6 +13,8 @@ public class AppStart extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		
+		
 		MainController mainController = new MainController(stage);
 		mainController.gotoLogin();
 	}

@@ -4,6 +4,7 @@
 package application.controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import application.model.data.Stand;
@@ -87,12 +88,12 @@ public class EditWineController implements Initializable {
 		userName_Lable.setText(mainCon.getSession().getCurrentUser().getUsername());
 		standName_Lable.setText(stand.getStandName().get());
 		
-		ObservableList<Wine> wineList = mainCon.getSession().getWineList();
 		ObservableList<Wine> standWineList = FXCollections.observableArrayList();
-		for (Wine wine : wineList) {
-			if(wine.getStand().get().getStandId().get() == stand.getStandId().get()) {
-				standWineList.add(wine);
-			}
+		try {
+			standWineList.addAll(new WineDAO().getWineByStand(stand));
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
 		}
 		wines_ChoiceBox.setItems(standWineList);
 		logOut_Button.addEventFilter(ActionEvent.ANY, new EventHandler<ActionEvent>() {

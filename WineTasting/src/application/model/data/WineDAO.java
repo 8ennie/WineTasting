@@ -23,7 +23,7 @@ public class WineDAO extends BaseDAO implements IWineDAO {
 	public List<Wine> getWineByName(String name) throws SQLException {
 		List<Wine> wines = new ArrayList<>();
 		PreparedStatement prepareStatement = this.conn.prepareStatement(
-				"Select ID,wineName, wineDescription, standID  from wine_test_db.WINE WHERE ID = ?");
+				"Select ID,wineName, wineDescription, standID  from wine_test_db.WINE WHERE wineName = ?");
 		prepareStatement.setString(1, name);
 		ResultSet rs = prepareStatement.executeQuery();
 		while (rs.next()) {

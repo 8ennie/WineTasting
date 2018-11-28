@@ -36,3 +36,16 @@ CREATE TABLE WINE (
 
 INSERT INTO WINE(wineName, wineDescription, standID)
 VALUES ("Rot Wein", "",2), ("Weis Wein", "" ,1);
+
+CREATE TABLE WINEEVALUATION (
+    ID int NOT NULL AUTO_INCREMENT,
+    sweet int,
+    salty int,
+    bitter int,
+    sour int,
+    wineID int,
+    userID int,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (wineID) REFERENCES WINE(ID),
+    FOREIGN KEY (userID) REFERENCES USER(ID)
+);

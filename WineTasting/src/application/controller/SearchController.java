@@ -161,9 +161,11 @@ public class SearchController implements Initializable {
 				mainCon.gotoStands();
 			}
 		});
+		search_AnchorPane.addEventHandler(KeyEvent.KEY_PRESSED, chooseStandHandler);
+		chooseStand_Button.addEventHandler(ActionEvent.ANY, chooseStandHandler);
 	}
 
-	final EventHandler<Event> ChooseStandHandler = new EventHandler<Event>() {
+	final EventHandler<Event> chooseStandHandler = new EventHandler<Event>() {
 		@Override
 		public void handle(Event event) {
 			if (event.getEventType() != ActionEvent.ANY) {
@@ -172,11 +174,11 @@ public class SearchController implements Initializable {
 				}
 			}
 
-			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(chooseStand_Button)) {
+			if (mainCon.getStage().getScene().focusOwnerProperty().get().equals(chooseStand_Button) && !result_TableView.getSelectionModel().isEmpty()) {
 				if (searchStatus.equals(SearchStatus.Evaluation)) {
-					mainCon.gotoViewEvaluation(result_TableView.getSelectionModel().getSelectedItem());
-				}else if(searchStatus.equals(SearchStatus.Evaluation)) {
 					mainCon.gotoEvaluation(result_TableView.getSelectionModel().getSelectedItem());
+				}else if(searchStatus.equals(SearchStatus.ViewEvaluation)) {
+					mainCon.gotoViewEvaluation(result_TableView.getSelectionModel().getSelectedItem());
 				}
 				
 				

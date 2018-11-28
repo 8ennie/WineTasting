@@ -9,6 +9,7 @@ package application.model.data;
  */
 public class User {
 	
+	private int userID;
 	private final String USERNAME;
 	private final String PW;
 	
@@ -19,15 +20,25 @@ public class User {
 		return this.PW;
 	}
 	
+	public int getUserID() {
+		return this.userID;
+	}
+	
 	/**
 	 * @param name of the user
 	 * @param password of the user
 	 */
 	public User(String name, String password) {
-		super();
 		USERNAME = name;
 		PW = password;
 	}
+	
+	public User(int userID, String name, String password) {
+		this.userID = userID;
+		USERNAME = name;
+		PW = password;
+	}
+	
 	
 	public boolean isEqualTo(User userToCompare) {
 		System.out.println("X: " + this);
