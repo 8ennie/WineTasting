@@ -31,6 +31,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -137,7 +138,8 @@ public class EvaluationController implements Initializable {
 			ex.printStackTrace();
 		}
 		wines_ChoiceBox.setItems(standWineList);
-		wines_ChoiceBox.getSelectionModel().select(wine);
+		int index = standWineList.indexOf(wine);
+		wines_ChoiceBox.getSelectionModel().select(index);
 		wines_ChoiceBox.setValue(wine);
 		wines_ChoiceBox.getSelectionModel().selectedItemProperty().addListener(changeWineListener);
 		evaluateWine_Button.addEventHandler(ActionEvent.ANY, evaluateWineHandler);
@@ -149,7 +151,9 @@ public class EvaluationController implements Initializable {
 	ChangeListener<Wine> changeWineListener = new ChangeListener<Wine>() {
 		@Override
 		public void changed(ObservableValue<? extends Wine> observable, Wine oldValue, Wine newValue) {
-			update();
+			if(!(wine == wines_ChoiceBox.getValue())) {
+				update();
+			}
 		}
 	};
 
